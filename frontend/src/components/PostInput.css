@@ -1,0 +1,29 @@
+.post-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-input-header {
+  position: relative;
+  top: -15px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.submit-post-btn {
+  align-self: center;
+  background-color: #00e38c;
+  color: white;
+  padding: 10px 0px;
+  width: 200px;
+  border: none;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.submit-post-btn:hover {
+  transform: scale(1.05);
+}
