@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "flush-website-backend",
+=======
+  "name": "mco2",
+>>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
   "version": "1.0.0",
   "type": "module",
   "description": "",

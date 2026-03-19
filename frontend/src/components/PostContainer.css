@@ -16,7 +16,125 @@
   scrollbar-width: none;
 }
 
+<<<<<<< HEAD
 .post-container-stream {
+=======
+.post {
+  background-color: rgb(246, 246, 246);
+  padding: 10px;
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background-color 0.2s,
+    border-radius 0.2s,
+    border 0.2s;
+  transform-origin: center;
+}
+
+.post:hover {
+  transform: scale(1.04);
+  z-index: 5;
+}
+
+.post:first-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #d0d0d0 0px,
+    #d0d0d0 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.post:first-child {
+  padding-top: 12px;
+}
+
+.post:last-child {
+  padding-bottom: 12px;
+}
+
+.post::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #d0d0d0 0px,
+    #d0d0d0 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.post:last-child::after {
+  height: 4px;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.author-info a {
+  text-decoration: none;
+  color: #000000;
+}
+.pfp {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #00cfff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.username {
+  font-size: 14px;
+}
+
+.username:hover {
+  color: #8cc2ef;
+  text-decoration: underline;
+}
+
+.dot,
+.date {
+  font-size: 14px;
+  color: rgb(170, 170, 170);
+}
+
+.post-interactions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.upvote-btn,
+.downvote-btn {
+  border-radius: 15px;
+  background-color: rgb(222, 222, 222);
+  border: none;
+}
+
+.upvote-btn:hover,
+.downvote-btn:hover {
+  background-color: #c6c6c6;
+}
+
+.stream {
+>>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
   margin-top: 25px;
   display: flex;
   align-items: center;
@@ -27,7 +145,11 @@
   transition: height 0.2s;
 }
 
+<<<<<<< HEAD
 .post-container-stream hr {
+=======
+.stream hr {
+>>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
   width: 95%;
   height: 6px;
   background-color: black;
