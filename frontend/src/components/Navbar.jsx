@@ -9,7 +9,7 @@ function Navbar() {
         <option value="popular">Popular</option>
         <option value="latest">Latest</option>
       </select>
-      <Link to="/">Home</Link> 
+      <Link to="/">Home</Link>
       <Link to="/about">About Us</Link>
       <div className="user-cluster">
         <Link className="login" to="/login">
