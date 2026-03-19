@@ -22,7 +22,6 @@ function Page({ posts, refreshPosts }) {
           >
             Create Post
           </button>
-
           <Popup
             className="create-post-popup"
             open={isCreatePopupOpen}
