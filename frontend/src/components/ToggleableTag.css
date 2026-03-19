@@ -1,0 +1,15 @@
+.toggleable-tag {
+  font-size: 13.5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  height: 20px;
+  width: 70px;
+  text-align: center;
+  line-height: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.toggleable-tag:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}

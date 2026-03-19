@@ -1,0 +1,13 @@
+.error {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -10px;
+}
+
+.error-text {
+  position: absolute;
+  font-size: 10px;
+  bottom: 72px;
+  color: red;
+  text-align: center;
+}

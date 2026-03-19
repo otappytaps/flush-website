@@ -1,0 +1,114 @@
+.post {
+  background-color: rgb(246, 246, 246);
+  padding: 10px;
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background-color 0.2s,
+    border-radius 0.2s,
+    border 0.2s;
+  transform-origin: center;
+}
+
+.post:hover {
+  transform: scale(1.04);
+  z-index: 5;
+}
+
+.post:first-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #d0d0d0 0px,
+    #d0d0d0 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.post:first-child {
+  padding-top: 12px;
+}
+
+.post:last-child {
+  padding-bottom: 12px;
+  margin-bottom: 55px;
+}
+
+.post::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #d0d0d0 0px,
+    #d0d0d0 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.post:last-child::after {
+  height: 4px;
+}
+
+.post-author-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.post-author-info a {
+  text-decoration: none;
+  color: #000000;
+}
+.post-pfp {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #00cfff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-username {
+  font-size: 14px;
+}
+
+.post-username:hover {
+  color: #8cc2ef;
+  text-decoration: underline;
+}
+
+.post-dot,
+.post-date {
+  font-size: 14px;
+  color: rgb(170, 170, 170);
+}
+
+.post-interactions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.post-upvote-btn,
+.post-downvote-btn {
+  border-radius: 15px;
+  background-color: rgb(222, 222, 222);
+  border: none;
+}
+
+.post-upvote-btn:hover,
+.post-downvote-btn:hover {
+  background-color: #c6c6c6;
+}
