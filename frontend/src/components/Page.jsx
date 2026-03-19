@@ -12,11 +12,7 @@ function Page({ posts, refreshPosts }) {
     <div className="page">
       <div className="left"></div>
       <div className="center">
-<<<<<<< HEAD
         <PostContainer posts={posts} refreshPosts={refreshPosts} />
-=======
-        <PostContainer posts={posts} />
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
       </div>
       <div className="right">
         <div className="post-cluster">
@@ -26,11 +22,7 @@ function Page({ posts, refreshPosts }) {
           >
             Create Post
           </button>
-<<<<<<< HEAD
 
-=======
-          
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
           <Popup
             className="create-post-popup"
             open={isCreatePopupOpen}
@@ -38,13 +30,8 @@ function Page({ posts, refreshPosts }) {
           >
             <PostInput
               header="Create Post"
-<<<<<<< HEAD
               closePopUp={() => setIsCreatePopupOpen(false)}
               refreshPosts={refreshPosts}
-=======
-              onPostCreated={refreshPosts}
-              closePopUp={() => setIsCreatePopupOpen(false)}
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
             />
           </Popup>
 
@@ -68,8 +55,4 @@ function Page({ posts, refreshPosts }) {
   );
 }
 
-<<<<<<< HEAD
 export default Page;
-=======
-export default Page;
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814

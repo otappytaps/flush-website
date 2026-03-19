@@ -2,7 +2,6 @@ import "./PostInput.css";
 import TextInput from "./TextInput";
 import TagSelector from "./TagSelector";
 import { useState } from "react";
-import defaultPfp from "../assets/default-pfp.png";
 import Error from "./Error";
 
 function PostInput({ header, closePopUp, refreshPosts }) {
@@ -35,9 +34,8 @@ function PostInput({ header, closePopUp, refreshPosts }) {
           // add author object
           title: titleText,
           content: contentText,
-          pfp: defaultPfp,
-          likes: Number(100),
-          dislikes: 0,
+          likes: 100,
+          dislikes: 100,
         }),
       });
 

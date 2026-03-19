@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "flush-website-frontend",
-=======
-  "name": "flush-react",
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
   "private": true,
   "version": "0.0.0",
   "type": "module",
