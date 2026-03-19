@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Use this for internal links
 import "./Login.css";
-=======
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Use this for internal links
-import './Login.css';
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -43,15 +37,9 @@ function Login() {
                 <label>Username:</label>
                 <div className="input-icon">
                   <i className="fa-solid fa-user"></i>
-<<<<<<< HEAD
                   <input
                     type="text"
                     placeholder="Enter username"
-=======
-                  <input 
-                    type="text" 
-                    placeholder="Enter username" 
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
@@ -62,15 +50,9 @@ function Login() {
                 <label>Password:</label>
                 <div className="input-icon">
                   <i className="fa-solid fa-lock"></i>
-<<<<<<< HEAD
                   <input
                     type="password"
                     placeholder="Enter password"
-=======
-                  <input 
-                    type="password" 
-                    placeholder="Enter password" 
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -82,7 +64,6 @@ function Login() {
                 <label htmlFor="remember">Remember Me</label>
               </div>
 
-<<<<<<< HEAD
               <button type="submit" className="login-btn">
                 Login
               </button>
@@ -90,12 +71,6 @@ function Login() {
               <div className="signup-container">
                 <p>
                   Don't have an account?
-=======
-              <button type="submit" className="login-btn">Login</button>
-
-              <div className="signup-container">
-                <p>Don't have an account? 
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
                   <Link to="/signup"> Sign Up</Link>
                 </p>
               </div>
@@ -107,8 +82,4 @@ function Login() {
   );
 }
 
-<<<<<<< HEAD
 export default Login;
-=======
-export default Login;
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814

@@ -1,16 +1,9 @@
 import Banner from "./components/Banner.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Page from "./components/Page.jsx";
-<<<<<<< HEAD
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
 import { useState } from "react";
-=======
-import Login from "./components/Login.jsx";  
-import SignUp from "./components/SignUp.jsx";
-import defaultPfp from "./assets/default-pfp.png";
-import { useState, useEffect } from "react";
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -37,11 +30,7 @@ function App() {
 
   const [posts, setPosts] = useState([]);
 
-<<<<<<< HEAD
   const refreshPosts = async () => {
-=======
-  const getPosts = async () => {
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
     try {
       const res = await fetch("http://localhost:5001/api/posts");
       const data = await res.json();
@@ -51,13 +40,6 @@ function App() {
     }
   };
 
-<<<<<<< HEAD
-=======
-  useEffect(() => {
-    getPosts();
-  }, []);
-
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
   return (
     // <>
     //   <Navbar />
@@ -67,7 +49,6 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-<<<<<<< HEAD
         <Route
           path="/"
           element={
@@ -78,15 +59,6 @@ function App() {
             </>
           }
         />
-=======
-        <Route path="/" element={
-          <>
-            <Navbar />
-            <Banner />
-            <Page posts={posts} refreshPosts={getPosts} />
-          </>
-        } />
->>>>>>> 795ee3fe69e4d0974b2facf39e336ba76dc89814
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
