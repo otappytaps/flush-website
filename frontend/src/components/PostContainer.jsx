@@ -3,7 +3,7 @@ import defaultPfp from "../assets/default-pfp.png";
 import Post from "./Post";
 import { useEffect } from "react";
 
-function PostContainer({ posts, refreshPosts }) {
+function PostContainer({ posts, refreshPosts, user }) {
   useEffect(() => {
     refreshPosts();
     // eslint-disable-next-line
@@ -19,6 +19,7 @@ function PostContainer({ posts, refreshPosts }) {
           return (
             <Post
               key={post._id}
+              user={user}
               post={{
                 _id: post._id,
                 author: post.author,

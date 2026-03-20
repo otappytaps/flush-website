@@ -4,7 +4,7 @@ import TagSelector from "./TagSelector";
 import { useState } from "react";
 import Error from "./Error";
 
-function PostInput({ header, closePopUp, refreshPosts }) {
+function PostInput({ header, closePopUp, refreshPosts, user }) {
   const [titleText, setTitleText] = useState("");
   const [contentText, setContentText] = useState("");
 
@@ -12,6 +12,12 @@ function PostInput({ header, closePopUp, refreshPosts }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   async function submitPost() {
+    if (!user) {
+      setErrorMessage("You must be logged in to post.");
+      setIsErrorDisplayed(true);
+      return;
+    }
+
     if (titleText === "" || contentText === "") {
       setErrorMessage("Fields cannot be empty.");
       setIsErrorDisplayed(true);
@@ -26,6 +32,7 @@ function PostInput({ header, closePopUp, refreshPosts }) {
           // add author object
           title: titleText,
           content: contentText,
+          author: user.username,
         }),
       });
 

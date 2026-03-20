@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import CommentSection from "./CommentSection";
 
-function Post({ post, refreshPost }) {
+function Post({ post, refreshPost, user }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
 
@@ -122,7 +122,7 @@ function Post({ post, refreshPost }) {
             }}
           />
           <a href="">
-            <h1 className="post-username">username</h1>
+            <h1 className="post-username">{post.author || "Anonymous"}</h1>
           </a>
           <h1 className="post-dot">•</h1>
           <h1 className="post-date">{post.date}</h1>
@@ -174,7 +174,7 @@ function Post({ post, refreshPost }) {
         open={isCommentPopupOpen}
         onClose={() => setIsCommentPopupOpen(false)}
       >
-        <CommentSection post={post} refreshPost={refreshPost} />
+        <CommentSection post={post} refreshPost={refreshPost} user={user} />
       </Popup>
     </>
   );

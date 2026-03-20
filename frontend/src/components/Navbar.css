@@ -39,22 +39,119 @@ a:hover {
   transform: scale(1.05);
 }
 
+/* --- LOGIN: Horizontal Splash (Slide Effect) --- */
 .login {
-  margin-right: 7px;
+  margin-right: 12px;
   color: white;
-  background-color: #00e38c;
   text-align: center;
-  height: 35px;
-  width: 90px;
-  line-height: 35px;
-  border-radius: 35px;
+  height: 38px;
+  width: 100px;
+  line-height: 38px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+
+  /* Gradient Slide Logic */
+  background: linear-gradient(135deg, #00e38c 0%, #00a86b 50%, #004d31 100%);
+  background-size: 200% auto;
+  background-position: left center;
+  transition: background-position 0.6s cubic-bezier(0.2, 1, 0.4, 1), transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 227, 140, 0.2);
+}
+
+.login:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 227, 140, 0.4);
+}
+
+.login {
+  margin-right: 12px;
+  color: white;
+  text-align: center;
+  height: 38px;
+  width: 100px;
+  line-height: 38px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, #38B6FF 0%, #0072ff 50%, #003366 100%);
+  background-size: 200% auto;
+  background-position: left center;
+  transition: background-position 0.6s cubic-bezier(0.2, 1, 0.4, 1), transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.2);
+}
+
+.login:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
 }
 
 .signup {
-  border: 1px solid black;
   text-align: center;
-  height: 35px;
-  width: 90px;
+  height: 38px;
+  width: 100px;
   line-height: 35px;
-  border-radius: 35px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #0072ff;
+  border: 1.5px solid #0072ff;
+  background: linear-gradient(0deg, #38B6FF 0%, #0072ff 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0) 100%);
+  background-size: 100% 200%;
+  background-position: center top;
+ 
+  transition: 
+    background-position 0.8s cubic-bezier(0.19, 1, 0.22, 1), 
+    color 0.4s ease, 
+    transform 0.3s ease;
+}
+
+.signup:hover {
+  background-position: center bottom;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 114, 255, 0.3);
+  border-color: #38B6FF;
+}
+.user-cluster .user-greeting {
+  background: linear-gradient(135deg, #66a8ff 0%, #006eff 50%, #213e64 100%);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 50px;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.5s ease; 
+  background-size: 200% auto;
+  transition: background-position 0.6s cubic-bezier(0.2, 1, 0.4, 1);
+  margin-right: 10px;
+}
+
+.user-cluster .user-greeting:hover {
+  background-position: right center;
+  color: white; 
+}
+
+.user-cluster .navbar-logout-btn {
+  padding: 5px 15px;
+  border-radius: 50px;
+  border: 1px solid #006eff;
+  color: #006eff;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  background: linear-gradient(0deg, #499ef2 0%, #006eff 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0) 100%);
+  background-size: 100% 200%;
+  background-position: center top;
+  transition: background-position 1s cubic-bezier(0.19, 1, 0.22, 1), color 0.5s ease, transform 2s ease;
+}
+
+.user-cluster .navbar-logout-btn:hover {
+  background-position: center bottom;
+  color: white;
+  transform: scale(1.05); 
+  box-shadow: 0 4px 10px rgba(0, 110, 255, 0.2);
 }

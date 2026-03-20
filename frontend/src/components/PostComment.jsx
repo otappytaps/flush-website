@@ -13,7 +13,7 @@ function PostComment({ comment }) {
             e.target.src = defaultPfp;
           }}
         />
-        <h1 className="comment-username">username</h1>
+        <h1 className="comment-username">{comment.author || "Anonymous"}</h1>
         <h1 className="post-dot">•</h1>
         <h1 className="post-date">{comment.date}</h1>
       </div>

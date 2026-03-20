@@ -7,28 +7,11 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  // const posts = [
-  //   {
-  //     author: "user1",
-  //     title: "Post 1",
-  //     content: "This is the content of post 1",
-  //     date: "2022-01-01",
-  //     pfp: defaultPfp,
-  //     likes: 10,
-  //     dislikes: 5,
-  //   },
-  //   {
-  //     author: "user1",
-  //     title: "Post 1",
-  //     content: "This is the content of post 1",
-  //     date: "2022-01-01",
-  //     pfp: defaultPfp,
-  //     likes: 10,
-  //     dislikes: 5,
-  //   },
-  // ];
-
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("flush_user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const refreshPosts = async () => {
     try {
@@ -53,13 +36,14 @@ function App() {
           path="/"
           element={
             <>
-              <Navbar />
+              <Navbar user={user} setUser={setUser} />
               <Banner />
-              <Page posts={posts} refreshPosts={refreshPosts} />
+              <Page posts={posts} refreshPosts={refreshPosts} user={user} />
             </>
           }
         />
-        <Route path="/login" element={<Login />} />
+        {/* 3. Pass setUser to Login so it can "log them in" */}
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>

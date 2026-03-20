@@ -8,6 +8,7 @@ function CommentInput({
   isCreateCommentOpen,
   toggleIsCreateCommentOpen,
   refreshPost,
+  user
 }) {
   const [commentText, setCommentText] = useState("");
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
@@ -32,6 +33,7 @@ function CommentInput({
               ...post.comments,
               {
                 text: commentText,
+                author: user.username,
                 date: new Date().toLocaleString("en-us", {
                   month: "2-digit",
                   day: "2-digit",

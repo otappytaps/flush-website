@@ -1,0 +1,208 @@
+.login-split-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif";
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* LEFT SIDE */
+.login-left-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    color: black;
+    background-image: url(../assets/Right_login.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-brand-content {
+    text-align: center;
+    max-width: 400px;
+}
+
+.login-brand-title {
+    font-family: 'Cherry Bomb One', cursive;
+    font-size: 48px;
+    margin-top: 20px;
+}
+
+.login-brand-text {
+    font-size: 18px;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+/* RIGHT SIDE */
+.login-right-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../assets/Flush_BG.png); 
+    background-size: cover;
+}
+
+.login-background {
+    background: linear-gradient(135deg, #ffffff, #f0f4f8);
+    height: 650px;
+    width: 450px;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    overflow: hidden; /* Keeps the blue header corners rounded */
+}
+
+.login-logo-container {
+    margin: auto;
+    display: grid;
+    place-items: center;
+    background-color: rgb(43, 177, 255); 
+    padding: 20px 0;
+}
+
+.login-welcome-text {
+    text-align: center;
+    font-size: 32px;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 1.2px;
+    font-family: "Montserrat", sans-serif;
+}
+
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Form Group & Inputs */
+.login-form-group {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.login-form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.login-input-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.login-input-icon i {
+    position: absolute;
+    left: 14px;
+    color: #777;
+    font-size: 16px;
+}
+
+.login-input-icon input {
+    width: 100%;
+    padding: 12px 14px 12px 40px; /* Left padding for icon */
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    background-color: #f9fafc;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.login-input-icon input:focus {
+    border-color: #4e73df;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+    outline: none;
+}
+
+/* Remember Me */
+.login-remember {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 22px;
+    color: #555;
+}
+
+.login-remember input {
+    margin-right: 8px;
+    accent-color: #4e73df;
+}
+
+/* Button */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(43, 177, 255); 
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(78, 115, 223, 0.3);
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(78, 115, 223, 0.4);
+}
+
+/* Signup Link */
+.login-signup-container {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.login-signup-container p {
+    font-size: 14px;
+    color: #666;
+}
+
+.login-signup-container a {
+    color: #2e59d9;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-signup-container a:hover {
+    text-decoration: underline;
+}
+
+.login-signup-container span Link, 
+.login-signup-container a {
+    color: black;
+    text-decoration: none;
+    background-color: rgb(43, 177, 255); 
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-block; 
+    transition: all 0.2s ease-in-out;
+    margin-left: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -14,7 +14,10 @@ import mongoose from "mongoose";
 const postSchema = new mongoose.Schema(
   {
     // to be replaced with an author object for accessing username and pfp
-    author: String,
+    author: { 
+      type: String, 
+      required: true 
+    },
     title: {
       type: String,
       required: true,
@@ -36,6 +39,7 @@ const postSchema = new mongoose.Schema(
     comments: [
       {
         text: { type: String, required: true },
+        author: { type: String },
         likes: { type: Number, default: 0 },
         dislikes: { type: Number, default: 0 },
         date: { type: String, required: true },

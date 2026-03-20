@@ -23,10 +23,11 @@ export async function getPostById(req, res) {
 
 export async function createPost(req, res) {
   try {
-    const { title, content, likes, dislikes } = req.body;
+    const { title, content, author, likes, dislikes } = req.body;
     const newPost = new Post({
       title: title,
       content: content,
+      author: author,
       likes: likes,
       dislikes: dislikes,
       date: new Date().toLocaleString("en-us", {

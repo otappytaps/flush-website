@@ -3,7 +3,7 @@ import CommentContainer from "./CommentContainer";
 import CommentInput from "./CommentInput";
 import { useState } from "react";
 
-function CommentSection({ post, refreshPost }) {
+function CommentSection({ post, refreshPost, user }) {
   const [isCreateCommentOpen, setIsCreateCommentOpen] = useState(false);
 
   const [
@@ -67,6 +67,7 @@ function CommentSection({ post, refreshPost }) {
       </button>
       <CommentInput
         post={post}
+        user={user}
         isCreateCommentOpen={isCreateCommentOpen}
         toggleIsCreateCommentOpen={toggleIsCreateCommentOpen}
         refreshPost={refreshPost}
