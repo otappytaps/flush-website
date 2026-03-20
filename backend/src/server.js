@@ -3,18 +3,14 @@ import cors from 'cors';
 import postRoutes from './routes/postRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import { connectDB } from "./config/db.js";
-import dotenv from "dotenv";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-dotenv.config();
-
 const app = express();
-const PORT = process.env.PORT || 5001;
-const REACT = process.env.REACT_URL || "http://localhost:5173";
+const PORT = 5001;
+const REACT = "http://localhost:5173";
 
 app.use(cors());
 app.use(express.json());

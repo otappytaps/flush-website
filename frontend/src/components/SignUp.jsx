@@ -49,14 +49,14 @@ function SignUp() {
 
   return (
     <div className="signup-page-root">
-      <div className="left-panel">
-        <div className="brand-content">
-          <span className="sign-up-logo"></span>
-          <h1 className="brand-title">Flush</h1>
+      <div className="signup-left-panel">
+        <div className="signup-brand-content">
+          
+          <h1 className="signup-brand-title"></h1>
         </div>
       </div>
 
-      <div className="right-panel">
+      <div className="signup-right-panel">
         <div className="sign-up-background">
           <div className="sign-up-logo-container">
             <p className="welcome-text">Welcome to Flush!</p>
@@ -66,50 +66,50 @@ function SignUp() {
             <form id="signupForm" onSubmit={handleSubmit}>
               <h2 className="sign-up-title">Sign Up</h2>
 
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label htmlFor="firstName">First Name</label>
-                <div className="input-icon">
+                <div className="signup-input-icon">
                   <i className="fa-solid fa-user"></i>
                   <input type="text" name="firstName" placeholder="Enter first name" required onChange={handleChange} />
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label htmlFor="lastName">Last Name</label>
-                <div className="input-icon">
+                <div className="signup-input-icon">
                   <i className="fa-solid fa-user"></i>
                   <input type="text" name="lastName" placeholder="Enter last name" required onChange={handleChange} />
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label htmlFor="username">Username</label>
-                <div className="input-icon">
+                <div className="signup-input-icon">
                   <i className="fa-solid fa-circle-user"></i>
                   <input type="text" name="username" placeholder="Enter username" required onChange={handleChange} />
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label htmlFor="email">Email</label>
-                <div className="input-icon">
+                <div className="signup-input-icon">
                   <i className="fa-solid fa-envelope"></i>
                   <input type="email" name="email" placeholder="Enter email" required onChange={handleChange} />
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label htmlFor="dob">Date of Birth</label>
-                <div className="input-icon">
+                <div className="signup-input-icon">
                   <i className="fa-solid fa-calendar"></i>
                   <input type="date" name="dob" required onChange={handleChange} />
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="signup-form-group">
                 <label>
                   Password
-                  <span className="tooltip-wrap">
+                  <span className="signup-tooltip-wrap">
                     <i className="fa-solid fa-circle-question tooltip-icon"></i>
                     <div className="tooltip-box">
                       <p className="tooltip-title">Password must have:</p>
@@ -120,7 +120,7 @@ function SignUp() {
                     </div>
                   </span>
                 </label>
-                <div className="input-icon">
+                <div className="signup-input-icon">
                   <i className="fa-solid fa-lock"></i>
                   <input 
                     type={showPassword ? "text" : "password"} 
@@ -140,8 +140,8 @@ function SignUp() {
                 {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Sign Up"}
               </button>
 
-              <div className="login-link">
-                <p>Already have an account? <Link to="/login">Log in</Link></p>
+              <div className="signup-login-link">
+                <p>Already have an account? <span className="sign-uptologin"><Link to="/login">Log in</Link></span></p>
               </div>
             </form>
           </div>
@@ -149,9 +149,9 @@ function SignUp() {
       </div>
 
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
+        <div className="signup-modal">
+          <div className="signup-modal-content">
+            <span className="signup-close" onClick={() => setIsModalOpen(false)}>&times;</span>
             <h3>Terms & Conditions</h3>
             <p>Welcome to Flush! By signing up, you agree to our terms...</p>
           </div>
