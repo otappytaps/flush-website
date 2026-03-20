@@ -28,6 +28,8 @@ function PostContainer({ posts, refreshPosts }) {
                 pfp: post.pfp || defaultPfp,
                 likes: post.likes,
                 dislikes: post.dislikes,
+                commentCount: post.commentCount,
+                comments: post.comments,
               }}
               refreshPost={refreshPosts}
             />

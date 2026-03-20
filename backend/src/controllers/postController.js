@@ -38,7 +38,6 @@ export async function createPost(req, res) {
 
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
-    console.log(title, content);
   } catch (error) {
     console.error("Error in createPost controller", error);
     res.status(500).json({ message: "Internal server error!" });
@@ -47,12 +46,12 @@ export async function createPost(req, res) {
 
 export async function updatePost(req, res) {
   try {
-    const { title, content, likes, dislikes } = req.body;
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.id,
-      { title, content, likes, dislikes },
+      { $set: req.body },
       {
-        new: true,
+        returnDocument: "after",
+        runValidators: true,
       },
     );
 

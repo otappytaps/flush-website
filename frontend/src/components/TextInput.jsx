@@ -45,7 +45,7 @@ function TextInput({
         placeholder={placeholder}
         onChange={(e) => {
           setText(e.target.value);
-          updateText(e);
+          updateText(e.target.value);
         }}
         onClick={closeError}
         style={textAreaStyle}

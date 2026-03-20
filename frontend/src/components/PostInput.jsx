@@ -11,14 +11,6 @@ function PostInput({ header, closePopUp, refreshPosts }) {
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  function updateTitle(e) {
-    setTitleText(e.target.value);
-  }
-
-  function updateContent(e) {
-    setContentText(e.target.value);
-  }
-
   async function submitPost() {
     if (titleText === "" || contentText === "") {
       setErrorMessage("Fields cannot be empty.");
@@ -34,8 +26,6 @@ function PostInput({ header, closePopUp, refreshPosts }) {
           // add author object
           title: titleText,
           content: contentText,
-          likes: 100,
-          dislikes: 100,
         }),
       });
 
@@ -63,7 +53,7 @@ function PostInput({ header, closePopUp, refreshPosts }) {
         placeholder="Title"
         maxLength="50"
         height="50px"
-        updateText={updateTitle}
+        updateText={setTitleText}
         isErrorDisplayed={isErrorDisplayed}
         closeError={closeError}
       />
@@ -72,7 +62,7 @@ function PostInput({ header, closePopUp, refreshPosts }) {
         placeholder="Content"
         maxLength="1000"
         height="200px"
-        updateText={updateContent}
+        updateText={setContentText}
         isErrorDisplayed={isErrorDisplayed}
         closeError={closeError}
       />

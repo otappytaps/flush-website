@@ -33,6 +33,15 @@ const postSchema = new mongoose.Schema(
     },
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
+    comments: [
+      {
+        text: { type: String, required: true },
+        likes: { type: Number, default: 0 },
+        dislikes: { type: Number, default: 0 },
+        date: { type: String, required: true },
+      },
+    ],
+    commentCount: { type: Number, default: 0 },
   },
   { timestamps: true },
 );

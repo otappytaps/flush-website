@@ -1,0 +1,10 @@
+.comment-container {
+  height: 440px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
