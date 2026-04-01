@@ -155,3 +155,25 @@ a:hover {
   transform: scale(1.05); 
   box-shadow: 0 4px 10px rgba(0, 110, 255, 0.2);
 }
+
+.music-toggle {
+  background: linear-gradient(135deg, #38B6FF 0%, #0072ff 50%, #003366 100%);
+  background-size: 200% auto;
+  background-position: left center;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  height: 38px;
+  width: 38px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 12px;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.2);
+  transition: background-position 0.6s cubic-bezier(0.2, 1, 0.4, 1), transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.music-toggle:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+}

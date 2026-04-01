@@ -1,26 +1,39 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import audioManager from "./audioManager.jsx"; // adjust path as needed
+
 
 function Navbar({ user, setUser }) {
-  // links for anchors to be added later
-
   const navigate = useNavigate();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const toggleMusic = () => {
+    if (isPlaying) {
+      audioManager.pause();
+    } else {
+      audioManager.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   const handleLogout = () => {
-    localStorage.removeItem("flush_user"); 
-    setUser(null);                         
-    navigate("/");                    
+    localStorage.removeItem("flush_user");
+    setUser(null);
+    navigate("/");
   };
 
   return (
-<nav className="navbar">
+    <nav className="navbar">
       <select className="filter">
         <option value="popular">Popular</option>
         <option value="latest">Latest</option>
       </select>
-      
+
       <Link to="/">Home</Link>
       <Link to="/about">About Us</Link>
+
+      
 
       <div className="user-cluster">
         {user ? (
@@ -40,6 +53,10 @@ function Navbar({ user, setUser }) {
             </Link>
           </>
         )}
+
+        <button className="music-toggle" onClick={toggleMusic} title={isPlaying ? "Pause music" : "Play music"}>
+        {isPlaying ? "🔊" : "🔇"}
+      </button>
       </div>
     </nav>
   );
