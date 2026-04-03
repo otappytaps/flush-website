@@ -11,6 +11,7 @@
 }
 
 .post:hover {
+  background-color: rgb(251, 251, 251);
   transform: scale(1.05);
   z-index: 5;
 }
@@ -37,7 +38,6 @@
 
 .post:last-child {
   padding-bottom: 12px;
-  margin-bottom: 55px;
 }
 
 .post::after {
@@ -54,10 +54,6 @@
     transparent 8px,
     transparent 16px
   );
-}
-
-.post:last-child::after {
-  height: 4px;
 }
 
 .post-author-info {

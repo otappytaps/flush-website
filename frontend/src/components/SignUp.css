@@ -1,233 +1,245 @@
-/* SCOPED ROOT CONTAINER - Replaces html/body logic */
+@keyframes oceanFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .signup-page-root {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-image: url(../assets/Flush_BG.png);
-    background-size: cover;
-    background-position: center;
-    font-family: "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif";
-    box-sizing: border-box;
-}
-
-/* Ensure all children inherit border-box without global * */
-.signup-page-root *, 
-.signup-page-root *:before, 
-.signup-page-root *:after {
-    box-sizing: border-box;
-}
-
-/* LEFT PANEL SCOPED */
-.signup-page-root .signup-left-panel {
-    flex: 1;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 20px;
-    font-family: 'Cherry Bomb One', cursive;
-    color: black;
-    background-image: url(../assets/Left_login.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(-45deg, #38b6ff, #1e90ff, #70d1ff, #48cae4);
+  background-size: 300% 300%;
+  animation: oceanFlow 15s ease-in-out infinite;
 }
 
 .signup-page-root .signup-brand-content {
-    text-align: center;
-    max-width: 400px;
+  text-align: center;
+  max-width: 400px;
 }
 
 .signup-page-root .sign-up-logo {
-    background-image: url(../assets/flush-logo.png);
-    display: inline-block;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100px;
-    width: 100px;
+  background-image: url(../assets/flush-logo.png);
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100px;
+  width: 100px;
 }
 
 .signup-page-root .signup-brand-title {
-    font-size: 48px;
-    margin-top: 20px;
+  font-size: 48px;
+  margin-top: 20px;
 }
-
-/* RIGHT PANEL SCOPED */
-.signup-page-root .signup-right-panel {
-    flex: 1;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow-y: auto;
-    padding: 12px;
+.signup-page-root .signup-panel {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
 }
 
 .signup-page-root .sign-up-background {
-    background-color: #f7f9fc;
-    width: 450px;
-    border-radius: 20px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
+  background-color: #f7f9fc;
+  width: 450px;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
 }
 
 .signup-page-root .sign-up-logo-container {
-    background-color: rgb(43, 177, 255);
-    display: grid;
-    place-items: center;
-    padding: 14px 0;
+  background-color: rgb(43, 177, 255);
+  display: grid;
+  place-items: center;
+  padding: 14px 0;
 }
 
 .signup-page-root .welcome-text {
-    text-align: center;
-    font-size: 30px;
-    color: black;
-    font-weight: bold;
-    margin: 0;
-    font-family: "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+  text-align: center;
+  font-size: 30px;
+  color: black;
+  font-weight: bold;
+  margin: 0;
+  font-family:
+    "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
     "sans-serif";
 }
 
 /* FORM STYLES SCOPED */
 .signup-page-root .sign-up-form-container {
-    padding: 0px 40px 24px;
+  padding: 0px 40px 24px;
 }
 
 .signup-page-root .sign-up-title {
-    text-align: center;
-    margin-bottom: 16px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
 }
 
 .signup-page-root .signup-form-group {
-    position: relative;
-    margin-bottom: 12px;
+  position: relative;
+  margin-bottom: 12px;
 }
 
 .signup-page-root .signup-form-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #444;
-    margin-bottom: 4px;
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 4px;
 }
 
 /* INPUTS SCOPED */
 .signup-page-root .signup-input-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.signup-page-root .signup-input-icon i:not(.toggle-password) {
-    position: absolute;
-    left: 14px;
-    color: #777;
-    font-size: 16px;
+.signup-page-root .signup-input-icon .signup-icon:not(.toggle-password) {
+  position: absolute;
+  left: 14px;
+  color: #777;
+  font-size: 16px;
 }
 
 .signup-page-root .signup-input-icon input {
-    width: 100%;
-    padding: 9px 14px 9px 40px;
-    border-radius: 12px;
-    border: 2px solid #e0e0e0;
-    background-color: #f9fafc;
-    font-size: 13px;
-    transition: all 0.3s ease;
+  width: 100%;
+  padding: 9px 14px 9px 40px;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  background-color: #f9fafc;
+  font-size: 13px;
+  transition: all 0.3s ease;
 }
 
 .signup-page-root .signup-input-icon input:focus {
-    border-color: #006eff;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+  border-color: #006eff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
 }
 
-/* PASSWORD TOGGLE SCOPED */
 .signup-page-root .toggle-password {
-    position: absolute;
-    right: 12px;
-    cursor: pointer;
-    color: #777;
-    z-index: 10;
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: #777;
+  z-index: 10;
 }
 
 /* BUTTONS SCOPED */
 .signup-page-root .sign-up-btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background-color: rgb(43, 177, 255);
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: white;
+  text-align: center;
+  height: 45px;
+  width: 100%;
+  line-height: 38px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, #38b6ff 0%, #0072ff 50%, #003366 100%);
+  background-size: 200% auto;
+  background-position: left center;
+  transition:
+    background-position 0.6s cubic-bezier(0.2, 1, 0.4, 1),
+    transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.2);
+}
+
+.signup-page-root .sign-up-btn:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
 }
 
 .signup-page-root .sign-up-btn:disabled {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 /* TOOLTIP SCOPED */
 .signup-page-root .signup-tooltip-wrap {
-    position: relative;
-    display: inline-block;
-    margin-left: 5px;
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
 }
 
 .signup-page-root .tooltip-box {
-    display: none;
-    position: absolute;
-    left: 50%;
-    bottom: calc(100% + 8px);
-    transform: translateX(-50%);
-    background-color: #2c2c2c;
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px 14px;
-    width: 200px;
-    z-index: 100;
+  font-size: 12px;
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  background-color: #2c2c2c;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  width: 150px;
+  z-index: 100;
 }
 
 .signup-page-root .signup-tooltip-wrap:hover .tooltip-box {
-    display: block;
+  display: block;
 }
 
-/* MODAL SCOPED */
 .signup-page-root .signup-modal {
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .signup-page-root .signup-modal-content {
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
 }
 
 .signup-page-root .sign-uptologin a {
-    color: black;
-    text-decoration: none; 
-    background-color: rgb(43, 177, 255);
-    padding: 2px 5px 2px 5px;
-    border-radius: 5px;
+  color: #0072ff;
+  border: 1.5px solid #0072ff;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  margin-left: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.signup-page-root .sign-uptologin a:hover {
+  text-decoration: underline;
+}
+
+.signup-login-link p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
 }

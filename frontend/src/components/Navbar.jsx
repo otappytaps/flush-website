@@ -1,8 +1,7 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import audioManager from "./audioManager.jsx"; // adjust path as needed
-
+import audioManager from "./audioManager.jsx";
 
 function Navbar({ user, setUser }) {
   const navigate = useNavigate();
@@ -33,8 +32,6 @@ function Navbar({ user, setUser }) {
       <Link to="/">Home</Link>
       <Link to="/about">About Us</Link>
 
-      
-
       <div className="user-cluster">
         {user ? (
           <>
@@ -54,9 +51,13 @@ function Navbar({ user, setUser }) {
           </>
         )}
 
-        <button className="music-toggle" onClick={toggleMusic} title={isPlaying ? "Pause music" : "Play music"}>
-        {isPlaying ? "🔊" : "🔇"}
-      </button>
+        <button
+          className="music-toggle"
+          onClick={toggleMusic}
+          title={isPlaying ? "Pause music" : "Play music"}
+        >
+          {isPlaying ? "🔊" : "🔇"}
+        </button>
       </div>
     </nav>
   );

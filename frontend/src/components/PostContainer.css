@@ -35,3 +35,8 @@
   margin: 0 auto;
   border-radius: 40px;
 }
+
+.posts-spacer {
+  height: 70px;
+  flex-shrink: 0;
+}

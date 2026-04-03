@@ -24,12 +24,6 @@ function App() {
   };
 
   return (
-    // <>
-    //   <Navbar />
-    //   <Banner />
-    //   <Page posts={posts} />
-    // </>
-
     <BrowserRouter>
       <Routes>
         <Route
@@ -42,7 +36,7 @@ function App() {
             </>
           }
         />
-        {/* 3. Pass setUser to Login so it can "log them in" */}
+        {/*Pass setUser to Login so it can "log them in" */}
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

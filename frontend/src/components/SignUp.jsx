@@ -1,6 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './SignUp.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./SignUp.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleUser,
+  faEnvelope,
+  faCalendar,
+  faCircleQuestion,
+  faEye,
+  faEyeSlash,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -10,7 +20,7 @@ function SignUp() {
     email: "",
     dob: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -23,86 +33,114 @@ function SignUp() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
+    e.preventDefault();
+    setIsLoading(true);
 
-  try {
-    const response = await fetch("http://localhost:5001/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData), 
-    });
+    try {
+      const response = await fetch("http://localhost:5001/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      alert("Account created! You can now login.");
-    } else {
-      alert(data.message); 
+      if (response.ok) {
+        alert("Account created! You can now login.");
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error("Sign up failed:", err);
+    } finally {
+      setIsLoading(false);
     }
-  } catch (err) {
-    console.error("Sign up failed:", err);
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   return (
     <div className="signup-page-root">
-      <div className="signup-left-panel">
-        <div className="signup-brand-content">
-          
-          <h1 className="signup-brand-title"></h1>
-        </div>
-      </div>
-
-      <div className="signup-right-panel">
+      <div className="signup-panel">
         <div className="sign-up-background">
-          <div className="sign-up-logo-container">
-            <p className="welcome-text">Welcome to Flush!</p>
-          </div>
-
           <div className="sign-up-form-container">
             <form id="signupForm" onSubmit={handleSubmit}>
-              <h2 className="sign-up-title">Sign Up</h2>
+              <h2 className="sign-up-title">Join the Community!</h2>
 
               <div className="signup-form-group">
                 <label htmlFor="firstName">First Name</label>
                 <div className="signup-input-icon">
-                  <i className="fa-solid fa-user"></i>
-                  <input type="text" name="firstName" placeholder="Enter first name" required onChange={handleChange} />
+                  <FontAwesomeIcon
+                    className="signup-icon"
+                    icon={faCircleUser}
+                  />
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="Enter first name"
+                    required
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
               <div className="signup-form-group">
                 <label htmlFor="lastName">Last Name</label>
                 <div className="signup-input-icon">
-                  <i className="fa-solid fa-user"></i>
-                  <input type="text" name="lastName" placeholder="Enter last name" required onChange={handleChange} />
+                  <FontAwesomeIcon
+                    className="signup-icon"
+                    icon={faCircleUser}
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Enter last name"
+                    required
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
               <div className="signup-form-group">
                 <label htmlFor="username">Username</label>
                 <div className="signup-input-icon">
-                  <i className="fa-solid fa-circle-user"></i>
-                  <input type="text" name="username" placeholder="Enter username" required onChange={handleChange} />
+                  <FontAwesomeIcon
+                    className="signup-icon"
+                    icon={faCircleUser}
+                  />
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter username"
+                    required
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
               <div className="signup-form-group">
                 <label htmlFor="email">Email</label>
                 <div className="signup-input-icon">
-                  <i className="fa-solid fa-envelope"></i>
-                  <input type="email" name="email" placeholder="Enter email" required onChange={handleChange} />
+                  <FontAwesomeIcon className="signup-icon" icon={faEnvelope} />
+
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter email"
+                    required
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
               <div className="signup-form-group">
                 <label htmlFor="dob">Date of Birth</label>
                 <div className="signup-input-icon">
-                  <i className="fa-solid fa-calendar"></i>
-                  <input type="date" name="dob" required onChange={handleChange} />
+                  <FontAwesomeIcon className="signup-icon" icon={faCalendar} />
+                  <input
+                    type="date"
+                    name="dob"
+                    required
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
@@ -110,7 +148,11 @@ function SignUp() {
                 <label>
                   Password
                   <span className="signup-tooltip-wrap">
-                    <i className="fa-solid fa-circle-question tooltip-icon"></i>
+                    <FontAwesomeIcon
+                      className="signup-icon"
+                      icon={faCircleQuestion}
+                    />
+
                     <div className="tooltip-box">
                       <p className="tooltip-title">Password must have:</p>
                       <ul>
@@ -121,27 +163,44 @@ function SignUp() {
                   </span>
                 </label>
                 <div className="signup-input-icon">
-                  <i className="fa-solid fa-lock"></i>
-                  <input 
-                    type={showPassword ? "text" : "password"} 
-                    name="password" 
-                    placeholder="Enter password" 
-                    required 
-                    onChange={handleChange} 
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                    onChange={handleChange}
                   />
-                  <i 
-                    className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"} toggle-password`} 
+                  <FontAwesomeIcon
+                    className="signup-icon"
+                    icon={showPassword ? faEyeSlash : faEye}
                     onClick={() => setShowPassword(!showPassword)}
-                  ></i>
+                  />
                 </div>
               </div>
 
-              <button type="submit" className="sign-up-btn" disabled={isLoading}>
-                {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Sign Up"}
+              <button
+                type="submit"
+                className="sign-up-btn"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <FontAwesomeIcon
+                    className="signup-icon"
+                    icon={faSpinner}
+                    spin
+                  />
+                ) : (
+                  "Sign Up"
+                )}
               </button>
 
               <div className="signup-login-link">
-                <p>Already have an account? <span className="sign-uptologin"><Link to="/login">Log in</Link></span></p>
+                <p>
+                  Already have an account?{" "}
+                  <span className="sign-uptologin">
+                    <Link to="/login">Log In</Link>
+                  </span>
+                </p>
               </div>
             </form>
           </div>
@@ -151,9 +210,62 @@ function SignUp() {
       {isModalOpen && (
         <div className="signup-modal">
           <div className="signup-modal-content">
-            <span className="signup-close" onClick={() => setIsModalOpen(false)}>&times;</span>
+            <span
+              className="signup-close"
+              onClick={() => setIsModalOpen(false)}
+            >
+              &times;
+            </span>
             <h3>Terms & Conditions</h3>
-            <p>Welcome to Flush! By signing up, you agree to our terms...</p>
+            <p>
+              Terms and Conditions for Flush
+              <p>
+                Welcome to Flush! By signing up and using our platform, you
+                agree to the following terms and conditions:
+              </p>
+              <ul>
+                1. **Acceptance of Terms** By accessing and using Flush, you
+                agree to comply with these terms. If you do not agree, please do
+                not use the service.
+                <br></br>
+                2. **Account Responsibility** You are responsible for
+                maintaining the confidentiality of your account credentials,
+                including your username and password. You agree to notify us
+                immediately of any unauthorized use.
+                <br></br>
+                3. **User Conduct** You agree not to engage in any harmful or
+                illegal activity on Flush, including but not limited to
+                spamming, posting offensive content, or attempting to breach
+                security.
+                <br></br>
+                4. **Content Ownership** All content submitted by users remains
+                the property of the user. By submitting content, you grant Flush
+                a non-exclusive license to display and distribute it within the
+                platform.
+                <br></br>
+                5. **Privacy** We respect your privacy. Personal information
+                collected will be used according to our Privacy Policy and will
+                not be shared with third parties without your consent.
+                <br></br>
+                6. **Modifications** Flush reserves the right to modify these
+                Terms and Conditions at any time. Users will be notified of
+                significant changes via email or in-app notifications.
+                <br></br>
+                7. **Termination** Flush may suspend or terminate your account
+                if you violate these Terms or engage in behavior that threatens
+                the integrity or safety of the platform.
+                <br></br>
+                8. **Limitation of Liability** Flush is provided "as is" without
+                warranties. We are not liable for any damages resulting from the
+                use of the platform.
+                <br></br>
+                9. **Governing Law** These Terms and Conditions are governed by
+                the laws of Madagascar. Any disputes shall be resolved in
+                accordance with applicable laws.
+              </ul>
+              By checking "I agree" and signing up, you acknowledge that you
+              have read, understood, and agree to these Terms and Conditions.
+            </p>
           </div>
         </div>
       )}

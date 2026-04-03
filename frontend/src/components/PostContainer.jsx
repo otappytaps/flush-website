@@ -36,6 +36,7 @@ function PostContainer({ posts, refreshPosts, user }) {
             />
           );
         })}
+        <div className="posts-spacer"></div>
       </div>
     </div>
   );
