@@ -37,7 +37,6 @@ function ViewProfile() {
     return (
       <div className="vp-main-container">
         <div className="vp-clogged-card">
-          {/* Animated 3D Emoji Icon */}
           <div className="vp-clogged-icon">🪠</div>
           
           <div className="vp-clogged-text">
@@ -45,7 +44,7 @@ function ViewProfile() {
             <h2 className="vp-clogged-username">System Error: User @{username} not found.</h2>
             
             <p className="vp-clogged-description">
-              We’ve checked the main trap, the septic tank, and the overflow pipe. 
+              We've checked the main trap, the septic tank, and the overflow pipe. 
               The user you are looking for has been completely swirled away or never 
               actually entered the system.
             </p>
