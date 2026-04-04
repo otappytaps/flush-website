@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import postRoutes from './routes/postRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import userRoutes from "./routes/userRoutes.js";
 import { connectDB } from "./config/db.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -27,6 +28,7 @@ app.use((req,res,next) => {
 
 app.use("/api/posts", postRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 connectDB().then(() => {
     app.listen(PORT, () => {

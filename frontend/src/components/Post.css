@@ -138,3 +138,22 @@
 .post-comment-btn:hover {
   background-color: rgb(198, 198, 198);
 }
+
+.post-username-link {
+  text-decoration: none;
+  color: inherit; 
+}
+
+.post-username-link:hover .post-username {
+  text-decoration: underline;
+  color: #38b6ff; 
+}
+
+.post-pfp {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.post-pfp:hover {
+  transform: scale(1.1);
+}

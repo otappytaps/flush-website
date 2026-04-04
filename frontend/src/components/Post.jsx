@@ -2,6 +2,7 @@ import "./Post.css";
 import defaultPfp from "../assets/default-pfp.png";
 import Popup from "./Popup";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import CommentSection from "./CommentSection";
@@ -113,17 +114,21 @@ function Post({ post, refreshPost, user }) {
     <>
       <div className="post">
         <div className="post-author-info">
-          <img
-            className="post-pfp"
-            src={post.author || defaultPfp}
-            alt="profile-picture"
-            onError={(e) => {
-              e.target.src = defaultPfp;
-            }}
-          />
-          <a href="">
+          <Link to={`/profile/${post.author}`}>
+            <img
+              className="post-pfp"
+              src={post.pfp ? `http://localhost:5001${post.pfp}` : defaultPfp}
+              alt="profile-picture"
+              onError={(e) => {
+                e.target.src = defaultPfp;
+              }}
+            />
+          </Link>
+          
+          <Link to={`/profile/${post.author}`} className="post-username-link">
             <h1 className="post-username">{post.author || "Anonymous"}</h1>
-          </a>
+          </Link>
+
           <h1 className="post-dot">•</h1>
           <h1 className="post-date">{post.date}</h1>
         </div>

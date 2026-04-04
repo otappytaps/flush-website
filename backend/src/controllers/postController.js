@@ -80,3 +80,18 @@ export async function deletePost(req, res) {
     res.status(500).json({ message: "Internal server error!" });
   }
 }
+
+export const getPostsByUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const posts = await Post.find({ author: username }).sort({ createdAt: -1 });
+    
+    if (!posts || posts.length === 0) {
+      return res.status(200).json([]); 
+    }
+    
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user posts", error: error.message });
+  }
+};

@@ -3,6 +3,9 @@ import Navbar from "./components/Navbar.jsx";
 import Page from "./components/Page.jsx";
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
+import EditProfile from "./components/EditProfile.jsx";
+import ViewProfile from "./components/ViewProfile.jsx";
+import AboutUs from "./components/AboutUs.jsx";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -36,9 +39,27 @@ function App() {
             </>
           }
         />
-        {/*Pass setUser to Login so it can "log them in" */}
+        <Route 
+          path="/profile/:username" 
+          element={
+            <>
+              <Navbar user={user} setUser={setUser} />
+              <ViewProfile />
+            </>
+          } 
+        />
+        <Route 
+          path="/edit-profile" 
+          element={
+            <>
+              <Navbar user={user} setUser={setUser} />
+              <EditProfile user={user} setUser={setUser} />
+            </>
+          } 
+        />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
     </BrowserRouter>
   );

@@ -5,6 +5,7 @@ import {
   getAllPosts,
   updatePost,
   getPostById,
+  getPostsByUsername,
 } from "../controllers/postController.js";
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.get("/:id", getPostById);
 router.post("/", createPost);
 router.put("/:id", updatePost);
 router.delete("/:id", deletePost);
+router.get("/user/:username", getPostsByUsername);
 
 export default router;

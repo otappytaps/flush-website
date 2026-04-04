@@ -29,8 +29,13 @@ const userSchema = new mongoose.Schema(
     },
     pfp: {
       type: String,
-      default: "",
+      default: "../assets/default-pfp.png",
     },
+    about: {
+      type: String,
+      default: "",
+      maxLength: 200 
+    }
   },
   { timestamps: true },
 );

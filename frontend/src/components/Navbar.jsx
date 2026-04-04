@@ -35,7 +35,9 @@ function Navbar({ user, setUser }) {
       <div className="user-cluster">
         {user ? (
           <>
-            <span className="user-greeting">{user.username}</span>
+            <Link to="/edit-profile" className="user-profile-link">
+              <span className="user-greeting">{user.username}</span>
+            </Link>
             <button className="navbar-logout-btn" onClick={handleLogout}>
               Logout
             </button>
