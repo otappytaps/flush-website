@@ -8,10 +8,26 @@ import { Link } from "react-router-dom";
 function Page({ posts, refreshPosts, user }) {
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
-
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   useEffect(() => {
     refreshPosts();
   }, []);
+
+  const userPosts = posts.filter((post) => post.author === user?.username);
+
+  const handleDelete = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/posts/${postId}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        refreshPosts();
+      }
+    } catch (err) {
+      console.error("Failed to delete post:", err);
+    }
+  };
+
 
   return (
     <div className="page">
@@ -36,6 +52,13 @@ function Page({ posts, refreshPosts, user }) {
               >
                 Edit Post
               </button>
+
+              <button
+                className="delete-post-btn"
+                onClick={() => setIsDeletePopupOpen(true)}
+              >
+                Delete Post
+              </button>
             </>
           ) : (
             <div className="login-promo">
@@ -53,8 +76,25 @@ function Page({ posts, refreshPosts, user }) {
             />
           </Popup>
 
-          <Popup open={isEditPopupOpen} onClose={() => setIsEditPopupOpen(false)}>
-            Popup for edit post
+          <Popup open={isDeletePopupOpen} onClose={() => setIsDeletePopupOpen(false)}>
+            <div className="delete-post-list">
+              <h3>Select a post to delete</h3>
+              {userPosts.length === 0 ? (
+                <p>You have not made a post yet</p>
+              ) : (
+                userPosts.map((post) => (
+                  <div
+                    key={post._id}
+                    className="delete-post-item"
+                    onClick={() => handleDelete(post._id)}>
+                      
+                    <p className="delete-post-title">{post.title}</p>
+                    <p className="delete-post-content">{post.content}</p>
+                  </div>
+                ))
+              )}
+            </div>
+
           </Popup>
         </div>
       </div>
