@@ -8,7 +8,7 @@ function CommentInput({
   isCreateCommentOpen,
   toggleIsCreateCommentOpen,
   refreshPost,
-  user
+  user,
 }) {
   const [commentText, setCommentText] = useState("");
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);

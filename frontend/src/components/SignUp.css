@@ -39,11 +39,15 @@
 }
 .signup-page-root .signup-panel {
   flex: 1;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100%;
   overflow-y: auto;
+}
+
+.signup-page-root {
+  height: 120vh;
 }
 
 .signup-page-root .sign-up-background {
@@ -72,7 +76,6 @@
     "sans-serif";
 }
 
-/* FORM STYLES SCOPED */
 .signup-page-root .sign-up-form-container {
   padding: 0px 40px 24px;
 }
@@ -98,7 +101,6 @@
   margin-bottom: 4px;
 }
 
-/* INPUTS SCOPED */
 .signup-page-root .signup-input-icon {
   position: relative;
   display: flex;
@@ -136,7 +138,6 @@
   z-index: 10;
 }
 
-/* BUTTONS SCOPED */
 .signup-page-root .sign-up-btn {
   margin-top: 15px;
   margin-bottom: 10px;
@@ -169,7 +170,6 @@
   opacity: 0.7;
 }
 
-/* TOOLTIP SCOPED */
 .signup-page-root .signup-tooltip-wrap {
   position: relative;
   display: inline-block;
@@ -242,4 +242,86 @@
   align-items: center;
   font-size: 14px;
   color: #666;
+}
+
+.signup-strength-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.signup-strength-bar-track {
+  flex: 1;
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.signup-strength-bar {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.signup-strength-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  min-width: 44px;
+}
+
+/* ── Terms Row ── */
+.signup-terms-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.signup-terms-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.signup-terms-link {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.shake {
+  animation: shake 0.35s ease;
+}
+
+input.valid {
+  border-color: #28a745;
+}
+
+input.invalid {
+  border-color: #dc3545;
+}
+
+.tooltip-box li.met {
+  color: #28a745;
 }

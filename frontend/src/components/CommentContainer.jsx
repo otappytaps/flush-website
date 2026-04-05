@@ -1,7 +1,7 @@
 import "./CommentContainer.css";
 import PostComment from "./PostComment";
 
-function CommentContainer({ post, isCreateCommentOpen }) {
+function CommentContainer({ post, refreshPost, isCreateCommentOpen }) {
   if (isCreateCommentOpen) return null;
 
   return (
@@ -10,7 +10,10 @@ function CommentContainer({ post, isCreateCommentOpen }) {
         return (
           <PostComment
             key={comment._id || index}
+            post={post}
+            refreshPost={refreshPost}
             comment={{
+              _id: comment._id,
               text: comment.text,
               author: comment.author,
               likes: comment.likes,

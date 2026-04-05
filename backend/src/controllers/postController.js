@@ -85,13 +85,63 @@ export const getPostsByUsername = async (req, res) => {
   try {
     const { username } = req.params;
     const posts = await Post.find({ author: username }).sort({ createdAt: -1 });
-    
+
     if (!posts || posts.length === 0) {
-      return res.status(200).json([]); 
+      return res.status(200).json([]);
     }
-    
+
     res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching user posts", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching user posts", error: error.message });
+  }
+};
+
+export const updateLikeToCommentByPostAndCommentId = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params;
+    const { likes } = req.body;
+    const post = await Post.findById(postId);
+    const comment = post.comments.find(
+      (comment) => comment._id.toString() === commentId,
+    );
+
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    comment.likes = likes;
+    await post.save();
+
+    res.send({ message: "Comment updated successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error updating comment", error: error.message });
+  }
+};
+
+export const updateDislikeToCommentByPostAndCommentId = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params;
+    const { dislikes } = req.body;
+    const post = await Post.findById(postId);
+    const comment = post.comments.find(
+      (comment) => comment._id.toString() === commentId,
+    );
+
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    comment.dislikes = dislikes;
+    await post.save();
+
+    res.send({ message: "Comment updated successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error updating comment", error: error.message });
   }
 };

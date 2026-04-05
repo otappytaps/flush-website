@@ -72,7 +72,11 @@ function CommentSection({ post, refreshPost, user }) {
         toggleIsCreateCommentOpen={toggleIsCreateCommentOpen}
         refreshPost={refreshPost}
       />
-      <CommentContainer post={post} isCreateCommentOpen={isCreateCommentOpen} />
+      <CommentContainer
+        post={post}
+        refreshPost={refreshPost}
+        isCreateCommentOpen={isCreateCommentOpen}
+      />
     </div>
   );
 }

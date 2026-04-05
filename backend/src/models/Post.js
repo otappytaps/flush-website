@@ -14,9 +14,9 @@ import mongoose from "mongoose";
 const postSchema = new mongoose.Schema(
   {
     // to be replaced with an author object for accessing username and pfp
-    author: { 
-      type: String, 
-      required: true 
+    author: {
+      type: String,
+      required: true,
     },
     title: {
       type: String,
