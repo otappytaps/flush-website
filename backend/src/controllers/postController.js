@@ -68,7 +68,7 @@ export async function updatePost(req, res) {
 
 export async function deletePost(req, res) {
   try {
-    const { title, content } = req.body;
+    // const { title, content } = req.body;
     const deletedPost = await Post.findByIdAndDelete(req.params.id);
 
     if (!deletedPost)
