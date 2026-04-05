@@ -237,9 +237,9 @@
   font-size: 13px;
   color: rgb(100, 100, 100);
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
   transition: all 0.2s ease-in-out;
 }
