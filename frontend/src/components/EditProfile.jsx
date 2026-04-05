@@ -76,9 +76,6 @@ function EditProfile({ user, setUser }) {
                 src={user.pfp ? `http://localhost:5001${user.pfp}` : defaultPfp} 
                 alt="Profile" 
                 />
-                <button id="edit-change-pfp-btn" title="Change Photo" type="button">
-                Edit
-                </button>
             </div>
           <h3 className="sidebar-user-name">{user.firstName} {user.lastName}</h3>
           <p className="sidebar-user-email">{user.email}</p>

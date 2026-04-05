@@ -1,17 +1,17 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import audioManager from "./audioManager.jsx";
+import AudioManager from "./AudioManager.jsx";
 
-function Navbar({ user, setUser }) {
+function Navbar({ user, setUser, onFlush, isFlushing }) {
   const navigate = useNavigate();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const toggleMusic = () => {
     if (isPlaying) {
-      audioManager.pause();
+      AudioManager.pause();
     } else {
-      audioManager.play();
+      AudioManager.play();
     }
     setIsPlaying(!isPlaying);
   };
@@ -22,13 +22,21 @@ function Navbar({ user, setUser }) {
     navigate("/");
   };
 
+  const handleFlush = () => {
+    onFlush(); 
+  };
+
   return (
     <nav className="navbar">
-      <select className="filter">
-        <option value="popular">Popular</option>
-        <option value="latest">Latest</option>
-      </select>
-
+      <button 
+        className={`flush-handle-btn ${isFlushing ? "flushing" : ""}`} 
+        onClick={handleFlush}
+        title="Flush the feed (Refresh)"
+      >
+        <span className="handle-icon">🚽</span>
+        <span className="handle-text">FLUSH FEED</span>
+      </button>
+      
       <Link to="/">Home</Link>
       <Link to="/about">About Us</Link>
 

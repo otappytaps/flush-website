@@ -9,6 +9,8 @@ function Page({ posts, refreshPosts, user }) {
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [filter, setFilter] = useState("latest");
+  
   useEffect(() => {
     refreshPosts();
   }, []);
@@ -28,12 +30,39 @@ function Page({ posts, refreshPosts, user }) {
     }
   };
 
+  const filteredPosts = [...posts].sort((a, b) => {
+    if (filter === "latest") {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+    if (filter === "popularity") {
+      return (b.likes || 0) - (a.likes || 0);
+    }
+    return 0;
+  });
 
   return (
     <div className="page">
-      <div className="left"></div>
+      <div className="left">
+        <div className="filter-station">
+          <h3>Sort Feed</h3>
+          <div className="filter-options">
+            <button 
+              className={`filter-btn ${filter === 'latest' ? 'active' : ''}`}
+              onClick={() => setFilter('latest')}
+            >
+              🌊 Latest
+            </button>
+            <button 
+              className={`filter-btn ${filter === 'popularity' ? 'active' : ''}`}
+              onClick={() => setFilter('popularity')}
+            >
+              🔥 Popular
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="center">
-        <PostContainer posts={posts} refreshPosts={refreshPosts} user={user} />
+        <PostContainer posts={filteredPosts} refreshPosts={refreshPosts} user={user} />
       </div>
       <div className="right">
         <div className="post-cluster">

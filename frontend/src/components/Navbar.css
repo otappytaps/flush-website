@@ -39,7 +39,6 @@ a:hover {
   transform: scale(1.05);
 }
 
-/* --- LOGIN: Horizontal Splash (Slide Effect) --- */
 .login {
   margin-right: 12px;
   color: white;
@@ -204,4 +203,78 @@ a:hover {
   background-position: right center;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+}
+
+.flush-handle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px; 
+  padding: 0 18px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  outline: none;
+  background: linear-gradient(135deg, #38b6ff 0%, #0072ff 50%, #003366 100%);
+  background-size: 200% auto;
+  background-position: left center;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.2);
+  transition:
+    background-position 0.6s cubic-bezier(0.2, 1, 0.4, 1), 
+    transform 0.3s ease, 
+    box-shadow 0.3s ease;
+  left: 20px;
+  top: 13px;
+}
+
+.flush-handle-btn:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
+}
+
+.handle-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.handle-icon {
+  font-size: 18px;
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.flush-handle-btn.flushing {
+  transform: scale(0.95);
+  box-shadow: 0 2px 10px rgba(0, 72, 255, 0.3);
+  opacity: 0.9;
+}
+
+.flush-handle-btn.flushing .handle-icon {
+  animation: handlePull 0.8s ease-in-out;
+}
+
+@keyframes handlePull {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(-50deg) scale(1.2); }
+  60% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (max-width: 768px) {
+  .handle-text {
+    display: none;
+  }
+  .flush-handle-btn {
+    width: 45px;
+    padding: 0;
+    left: 10px;
+  }
 }

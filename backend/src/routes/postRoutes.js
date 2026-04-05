@@ -8,10 +8,12 @@ import {
   getPostsByUsername,
   updateLikeToCommentByPostAndCommentId,
   updateDislikeToCommentByPostAndCommentId,
+  searchPosts,
 } from "../controllers/postController.js";
 
 const router = express.Router();
 
+router.get("/search", searchPosts);
 router.put(
   "/comment/like/:postId/:commentId",
   updateLikeToCommentByPostAndCommentId,

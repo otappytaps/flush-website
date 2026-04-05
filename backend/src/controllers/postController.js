@@ -145,3 +145,30 @@ export const updateDislikeToCommentByPostAndCommentId = async (req, res) => {
       .json({ message: "Error updating comment", error: error.message });
   }
 };
+
+export const searchPosts = async (req, res) => {
+  try {
+    const { q, type } = req.query; 
+
+    if (!q) return res.status(400).json({ message: "Search query required" });
+
+    let queryCondition = {};
+
+    if (type && ["title", "content", "author"].includes(type)) {
+      queryCondition = { [type]: { $regex: q, $options: "i" } };
+    } else {
+      queryCondition = {
+        $or: [
+          { title: { $regex: q, $options: "i" } },
+          { content: { $regex: q, $options: "i" } },
+          { author: { $regex: q, $options: "i" } }
+        ]
+      };
+    }
+
+    const posts = await Post.find(queryCondition).sort({ createdAt: -1 });
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: "Search failed", error: error.message });
+  }
+};

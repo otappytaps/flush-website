@@ -6,7 +6,8 @@ import SignUp from "./components/SignUp.jsx";
 import EditProfile from "./components/EditProfile.jsx";
 import ViewProfile from "./components/ViewProfile.jsx";
 import AboutUs from "./components/AboutUs.jsx";
-import { useState } from "react";
+import AudioManager from "./components/AudioManager.jsx";
+import { useState, useEffect } from "react"; 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,6 +16,11 @@ function App() {
     const savedUser = localStorage.getItem("flush_user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
+  const [isFlushing, setIsFlushing] = useState(false);
+
+  useEffect(() => {
+    refreshPosts();
+  }, []);
 
   const refreshPosts = async () => {
     try {
@@ -26,16 +32,37 @@ function App() {
     }
   };
 
+  const handleGlobalFlush = () => {
+    setIsFlushing(true);
+    AudioManager.playFlush();
+  
+    setTimeout(() => {
+      refreshPosts(); 
+    }, 600); 
+
+    setTimeout(() => {
+      setIsFlushing(false);
+    }, 1200); 
+  };
+
   return (
     <BrowserRouter>
+      {isFlushing && <div className="flush-wave"></div>}
       <Routes>
         <Route
           path="/"
           element={
             <>
-              <Navbar user={user} setUser={setUser} />
-              <Banner />
-              <Page posts={posts} refreshPosts={refreshPosts} user={user} />
+              <Navbar 
+                user={user} 
+                setUser={setUser} 
+                onFlush={handleGlobalFlush} 
+                isFlushing={isFlushing} 
+              />
+              <div className={isFlushing ? "flushing-contents" : ""}>
+                <Banner user={user} refreshAllPosts={refreshPosts} />
+                <Page posts={posts} refreshPosts={refreshPosts} user={user} />
+              </div>
             </>
           }
         />
@@ -43,7 +70,7 @@ function App() {
           path="/profile/:username" 
           element={
             <>
-              <Navbar user={user} setUser={setUser} />
+              <Navbar user={user} setUser={setUser} onFlush={handleGlobalFlush} isFlushing={isFlushing} />
               <ViewProfile />
             </>
           } 
@@ -52,7 +79,7 @@ function App() {
           path="/edit-profile" 
           element={
             <>
-              <Navbar user={user} setUser={setUser} />
+              <Navbar user={user} setUser={setUser} onFlush={handleGlobalFlush} isFlushing={isFlushing} />
               <EditProfile user={user} setUser={setUser} />
             </>
           } 

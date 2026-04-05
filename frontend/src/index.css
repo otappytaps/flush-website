@@ -18,3 +18,39 @@ html {
 * {
   font-family: inherit;
 }
+
+.flush-wave {
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 110vh; 
+  background: linear-gradient(to top, #1e90ff, #38b6ff, #81fbec);
+  z-index: 9999;
+  pointer-events: none;
+  border-top-left-radius: 50% 10%;
+  border-top-right-radius: 50% 10%;
+  box-shadow: 0 -15px 50px rgba(30, 144, 255, 0.6);
+  animation: tideInOut 1.2s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+}
+
+@keyframes tideInOut {
+  0% {
+    bottom: -110vh; 
+  }
+  50% {
+    bottom: 0; 
+  }
+  100% {
+    bottom: -110vh; 
+  }
+}
+
+.flushing-contents {
+  animation: contentDunk 1.2s ease-in-out;
+}
+
+@keyframes contentDunk {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(20px); filter: blur(2px); }
+  100% { transform: translateY(0); }
+}
