@@ -2,6 +2,7 @@ import "./CommentInput.css";
 import TextInput from "./TextInput";
 import Error from "./Error";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function CommentInput({
   post,
