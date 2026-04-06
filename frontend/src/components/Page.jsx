@@ -9,6 +9,7 @@ function Page({ posts, refreshPosts, user }) {
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [postToEdit, setPostToEdit] = useState(null);
   const [filter, setFilter] = useState("latest");
   
   useEffect(() => {
@@ -37,8 +38,23 @@ function Page({ posts, refreshPosts, user }) {
     if (filter === "popularity") {
       return (b.likes || 0) - (a.likes || 0);
     }
+
+    if (filter === "updated") {
+      const dateB = new Date(b.updatedAt || b.createdAt);
+      const dateA = new Date(a.updatedAt || a.createdAt);
+      return dateB - dateA;
+    }
+
     return 0;
   });
+
+  const handleSelectPostToEdit = (post) => {
+    setPostToEdit(post);
+  };
+
+  const handleCloseEditPopup = () => {
+    setPostToEdit(null);
+  };
 
   return (
     <div className="page">
@@ -51,6 +67,12 @@ function Page({ posts, refreshPosts, user }) {
               onClick={() => setFilter('latest')}
             >
               🌊 Latest
+            </button>
+            <button 
+              className={`filter-btn ${filter === 'updated' ? 'active' : ''}`}
+              onClick={() => setFilter('updated')}
+            >
+              ✨ Recently Updated
             </button>
             <button 
               className={`filter-btn ${filter === 'popularity' ? 'active' : ''}`}
@@ -106,14 +128,34 @@ function Page({ posts, refreshPosts, user }) {
           </Popup>
 
           <Popup open={isEditPopupOpen} onClose={() => setIsEditPopupOpen(false)}>
-            <PostInput 
-              header="Edit Post" 
-              user={user}
-              closePopUp={() => setIsCreatePopupOpen(false)} 
-              refreshPosts={refreshPosts} 
-            />
+            {postToEdit ? (
+              <PostInput
+                header="Edit Post"
+                user={user}
+                existingPost={postToEdit}
+                closePopUp={handleCloseEditPopup}
+                refreshPosts={refreshPosts}
+              />
+            ) : (
+              <div className="delete-post-list">
+                <h3>Select a post to edit</h3>
+                {userPosts.length === 0 ? (
+                  <p>You have not made a post yet</p>
+                ) : (
+                  userPosts.map((post) => (
+                    <div
+                      key={post._id}
+                      className="delete-post-item"
+                      onClick={() => handleSelectPostToEdit(post)}
+                    >
+                      <p className="delete-post-title">{post.title}</p>
+                      <p className="delete-post-content">{post.content}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
           </Popup>
-
           <Popup open={isDeletePopupOpen} onClose={() => setIsDeletePopupOpen(false)}>
             <div className="delete-post-list">
               <h3>Select a post to delete</h3>

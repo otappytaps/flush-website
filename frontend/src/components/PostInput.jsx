@@ -4,12 +4,14 @@ import TagSelector from "./TagSelector";
 import { useState } from "react";
 import Error from "./Error";
 
-function PostInput({ header, closePopUp, refreshPosts, user }) {
-  const [titleText, setTitleText] = useState("");
-  const [contentText, setContentText] = useState("");
+function PostInput({ header, closePopUp, refreshPosts, user, existingPost}) {
+  const [titleText, setTitleText] = useState(existingPost?.title || "");
+  const [contentText, setContentText] = useState(existingPost?.content || "");
 
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const isEditing = !!existingPost;
 
   async function submitPost() {
     if (!user) {
@@ -25,8 +27,13 @@ function PostInput({ header, closePopUp, refreshPosts, user }) {
     }
 
     try {
-      const response = await fetch("http://localhost:5001/api/posts", {
-        method: "POST",
+      const url = isEditing
+        ? `http://localhost:5001/api/posts/${existingPost._id}`
+        : "http://localhost:5001/api/posts";
+      const method = isEditing ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           // add author object
@@ -41,11 +48,11 @@ function PostInput({ header, closePopUp, refreshPosts, user }) {
         refreshPosts();
       } else {
         setIsErrorDisplayed(true);
-        setErrorMessage("Failed to create post.");
+        setErrorMessage(isEditing ? "Failed to edit post." : "Failed to create post.");
       }
     } catch {
       setIsErrorDisplayed(true);
-      setErrorMessage("Failed to create post.");
+      setErrorMessage(isEditing ? "Failed to edit post." : "Failed to create post.");
     }
   }
 
@@ -60,6 +67,7 @@ function PostInput({ header, closePopUp, refreshPosts, user }) {
         placeholder="Title"
         maxLength="50"
         height="50px"
+        initialValue={existingPost?.title || ""}
         updateText={setTitleText}
         isErrorDisplayed={isErrorDisplayed}
         closeError={closeError}
@@ -69,6 +77,7 @@ function PostInput({ header, closePopUp, refreshPosts, user }) {
         placeholder="Content"
         maxLength="1000"
         height="200px"
+        initialValue={existingPost?.content || ""}
         updateText={setContentText}
         isErrorDisplayed={isErrorDisplayed}
         closeError={closeError}
@@ -76,7 +85,7 @@ function PostInput({ header, closePopUp, refreshPosts, user }) {
       <TagSelector />
       <Error isErrorDisplayed={isErrorDisplayed} error={errorMessage} />
       <button className="submit-post-btn" onClick={submitPost}>
-        Submit
+        {isEditing ? "Save Changes" : "Submit"}
       </button>
     </div>
   );

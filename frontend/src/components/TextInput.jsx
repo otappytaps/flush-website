@@ -9,8 +9,9 @@ function TextInput({
   updateText,
   isErrorDisplayed,
   closeError,
+  initialValue = "",
 }) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(initialValue);
   const count = text.length;
 
   const textAreaStyle = {
@@ -43,6 +44,7 @@ function TextInput({
       <textarea
         maxLength={maxLength}
         placeholder={placeholder}
+        value={text}
         onChange={(e) => {
           setText(e.target.value);
           updateText(e.target.value);
