@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 function Page({ posts, refreshPosts, user }) {
   const [isCreatePopupOpen, setIsCreatePopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [postToEdit, setPostToEdit] = useState(null);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [filter, setFilter] = useState("latest");
+  
   useEffect(() => {
     refreshPosts();
   }, []);
@@ -28,12 +31,47 @@ function Page({ posts, refreshPosts, user }) {
     }
   };
 
+  const filteredPosts = [...posts].sort((a, b) => {
+    if (filter === "latest") {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+    if (filter === "popularity") {
+      return (b.likes || 0) - (a.likes || 0);
+    }
+    return 0;
+  });
+
+  const handleSelectPostToEdit = (post) => {
+    setPostToEdit(post);
+  };
+
+  const handleCloseEditPopup = () => {
+    setPostToEdit(null);
+  };
 
   return (
     <div className="page">
-      <div className="left"></div>
+      <div className="left">
+        <div className="filter-station">
+          <h3>Sort Feed</h3>
+          <div className="filter-options">
+            <button 
+              className={`filter-btn ${filter === 'latest' ? 'active' : ''}`}
+              onClick={() => setFilter('latest')}
+            >
+              🌊 Latest
+            </button>
+            <button 
+              className={`filter-btn ${filter === 'popularity' ? 'active' : ''}`}
+              onClick={() => setFilter('popularity')}
+            >
+              🔥 Popular
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="center">
-        <PostContainer posts={posts} refreshPosts={refreshPosts} user={user} />
+        <PostContainer posts={filteredPosts} refreshPosts={refreshPosts} user={user} />
       </div>
       <div className="right">
         <div className="post-cluster">
@@ -74,6 +112,36 @@ function Page({ posts, refreshPosts, user }) {
               closePopUp={() => setIsCreatePopupOpen(false)} 
               refreshPosts={refreshPosts} 
             />
+          </Popup>
+
+          <Popup open={isEditPopupOpen} onClose={() => setIsEditPopupOpen(false)}>
+            {postToEdit ? (
+              <PostInput
+                header="Edit Post"
+                user={user}
+                existingPost={postToEdit}
+                closePopUp={handleCloseEditPopup}
+                refreshPosts={refreshPosts}
+              />
+            ) : (
+              <div className="delete-post-list">
+                <h3>Select a post to edit</h3>
+                {userPosts.length === 0 ? (
+                  <p>You have not made a post yet</p>
+                ) : (
+                  userPosts.map((post) => (
+                    <div
+                      key={post._id}
+                      className="delete-post-item"
+                      onClick={() => handleSelectPostToEdit(post)}
+                    >
+                      <p className="delete-post-title">{post.title}</p>
+                      <p className="delete-post-content">{post.content}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
           </Popup>
 
           <Popup open={isDeletePopupOpen} onClose={() => setIsDeletePopupOpen(false)}>
