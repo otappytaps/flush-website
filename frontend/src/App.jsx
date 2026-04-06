@@ -49,6 +49,7 @@ function App() {
     try {
       const res = await fetch(
         "https://flush-website-backend.onrender.com/api/posts",
+        { credentials: 'include' }
       );
       const data = await res.json();
       setPosts(data);
