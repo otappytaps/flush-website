@@ -146,9 +146,10 @@ function Post({ post, refreshPost, user }) {
           <h1 className="post-dot">•</h1>
           <h1 className="post-date">{post.date}</h1>
 
-          {post.updatedAt && post.updatedAt !== post.createdAt && (
-            <span className="post-edited-tag">(edited)</span>
-          )}
+          {post.updatedAt && post.createdAt && 
+            new Date(post.updatedAt).getTime() !== new Date(post.createdAt).getTime() && (
+                <span className="post-edited-tag">(edited)</span>
+            )}
         </div>
 
         <h3>{post.title}</h3>
