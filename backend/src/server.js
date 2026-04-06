@@ -17,6 +17,8 @@ const REACT = "https://flush-website-frontend.onrender.com"; // http://localhost
 const MONGO_URI =
   "mongodb+srv://jenricklim_db_user:admin123456@flushcluster.zdndybn.mongodb.net/flushapp?appName=FlushCluster";
 
+
+app.set("trust proxy", 1);  
 app.use(express.json());
 app.use(
   session({
@@ -28,9 +30,10 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      secure: false,
+      secure: true,
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
+      sameSite: 'none',
     },
   }),
 );
