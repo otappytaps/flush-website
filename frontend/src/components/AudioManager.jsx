@@ -15,7 +15,7 @@ class AudioManager {
 
         this.music.addEventListener("ended", () => this.nextTrack());
         this.sfx = new Audio();
-        this.sfx.volume = 0.5;
+        this.sfx.volume = 0.3;
     }
 
     playFlush() {
