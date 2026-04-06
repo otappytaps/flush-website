@@ -2,7 +2,7 @@ import "./TagSelector.css";
 import ToggleableTag from "./ToggleableTag";
 import { useState } from "react";
 
-function TagSelector(tags) {
+function TagSelector(setTags) {
   // tags is the property of the temp post for the post to be created to be stored
   const [isMaleTagSelected, setIsMaleTagSelected] = useState(false);
   const [isFemaleTagSelected, setIsFemaleTagSelected] = useState(false);
@@ -11,7 +11,6 @@ function TagSelector(tags) {
 
   function toggleMaleTag() {
     setIsMaleTagSelected(!isMaleTagSelected);
-    console.log(isMaleTagSelected);
   }
 
   function toggleFemaleTag() {

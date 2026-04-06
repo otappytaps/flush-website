@@ -63,20 +63,34 @@ function CommentInput({
 
   return (
     <div className="comment-input">
-      <TextInput
-        label="Comment"
-        placeholder="Write a comment..."
-        maxLength="500"
-        height="100px"
-        updateText={setCommentText}
-        isErrorDisplayed={isErrorDisplayed}
-        closeError={() => setIsErrorDisplayed(false)}
-      />
-      <Error isErrorDisplayed={isErrorDisplayed} error={errorMessage}></Error>
+      {user ? (
+        <>
+          <TextInput
+            label="Comment"
+            placeholder="Write a comment..."
+            maxLength="500"
+            height="100px"
+            updateText={setCommentText}
+            isErrorDisplayed={isErrorDisplayed}
+            closeError={() => setIsErrorDisplayed(false)}
+          />
+          <Error
+            isErrorDisplayed={isErrorDisplayed}
+            error={errorMessage}
+          ></Error>
 
-      <button className="submit-comment-btn" onClick={submitComment}>
-        Submit
-      </button>
+          <button className="submit-comment-btn" onClick={submitComment}>
+            Submit
+          </button>
+        </>
+      ) : (
+        <div className="login-promo">
+          <p>Want to share your thoughts?</p>
+          <Link to="/login" className="login-btn-small">
+            Login to Flush
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
