@@ -3,33 +3,36 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import "./Login.css";
 
 function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5001/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/login",
+        { username, password, rememberMe },
+        { withCredentials: true } 
+      );
 
-      const data = await response.json();
+      const data = response.data;
 
-      if (response.ok) {
-        localStorage.setItem("flush_user", JSON.stringify(data.user));
-        setUser(data.user);
-        navigate("/");
-      } else {
-        alert(data.message || "Login failed");
-      }
+      localStorage.setItem("flush_user", JSON.stringify(data.user));
+      
+      setUser(data.user);
+      navigate("/");
+      
     } catch (err) {
+
+      const message = err.response?.data?.message || "Login failed";
+      alert(message);
       console.error("Login error:", err);
     }
   };
@@ -68,7 +71,13 @@ function Login({ setUser }) {
             </div>
 
             <div className="login-remember">
-              <input type="checkbox" id="remember" name="remember" />
+              <input 
+                type="checkbox" 
+                id="remember" 
+                name="remember" 
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)} 
+              />
               <label htmlFor="remember">Remember Me</label>
             </div>
 

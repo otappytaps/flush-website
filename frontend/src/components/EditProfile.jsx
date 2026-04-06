@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import defaultPfp from "../assets/default-pfp.png";
+import axios from "axios";
 import "./EditProfile.css";
 
 function EditProfile({ user, setUser }) {
@@ -36,25 +37,20 @@ function EditProfile({ user, setUser }) {
     }
 
     try {
-      const response = await fetch(`http://localhost:5001/api/users/${user._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.put(
+        `http://localhost:5001/api/users/${user._id}`, 
+        formData, 
+        { withCredentials: true } 
+      );
 
-      const data = await response.json();
+      const data = response.data;
 
-      if (response.ok) {
-        localStorage.setItem("flush_user", JSON.stringify(data.user));
-        setUser(data.user);
-        alert("Profile updated successfully!");
-        navigate("/");
-      } else {
-        alert(data.message || "Update failed");
-      }
+      setUser(data.user);
+      alert("Profile updated successfully!");
+      navigate("/");
     } catch (err) {
       console.error("Update error:", err);
-      alert("An error occurred while updating.");
+      alert(err.response?.data?.message || "An error occurred while updating.");
     }
   };
 
@@ -73,7 +69,7 @@ function EditProfile({ user, setUser }) {
           <div className="pfp-container">
             <img 
                 id="edit-pfp" 
-                src={user.pfp ? `http://localhost:5001${user.pfp}` : defaultPfp} 
+                src={(user.pfp && user.pfp !== "") ? `http://localhost:5001${user.pfp}` : defaultPfp}
                 alt="Profile" 
                 />
             </div>

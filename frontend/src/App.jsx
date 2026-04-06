@@ -7,18 +7,39 @@ import EditProfile from "./components/EditProfile.jsx";
 import ViewProfile from "./components/ViewProfile.jsx";
 import AboutUs from "./components/AboutUs.jsx";
 import AudioManager from "./components/AudioManager.jsx";
+import axios from "axios";
 import { useState, useEffect } from "react"; 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+axios.defaults.withCredentials = true;
+
 function App() {
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("flush_user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isFlushing, setIsFlushing] = useState(false);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get("http://localhost:5001/api/auth/me");
+        setUser(res.data); 
+      } catch (err) {
+        console.log("No active session found");
+        setUser(null);
+      } finally {
+        setTimeout(() => {
+          setIsFading(true);
+
+          setTimeout(() => {
+            setLoading(false);
+          }, 800); 
+        }, 2000);
+      }
+    };
+
+    checkAuth();
     refreshPosts();
   }, []);
 
@@ -44,6 +65,17 @@ function App() {
       setIsFlushing(false);
     }, 1200); 
   };
+
+  if (loading) {
+    return (
+      <div className={`loading-screen ${isFading ? "hidden" : ""}`}>
+        <div className="loading-bubble">
+          <div className="water"></div>
+        </div>
+        <p className="loading-text">FLUSHING...</p>
+      </div>
+    );
+  }
 
   return (
     <BrowserRouter>

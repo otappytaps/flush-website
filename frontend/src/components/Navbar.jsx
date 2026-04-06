@@ -1,6 +1,7 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 import AudioManager from "./AudioManager.jsx";
 
 function Navbar({ user, setUser, onFlush, isFlushing }) {
@@ -16,10 +17,22 @@ function Navbar({ user, setUser, onFlush, isFlushing }) {
     setIsPlaying(!isPlaying);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("flush_user");
-    setUser(null);
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:5001/api/auth/logout", {}, { 
+        withCredentials: true 
+      });
+
+      localStorage.removeItem("flush_user");
+      
+      setUser(null);
+      
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed", error);
+      setUser(null);
+      navigate("/login");
+    }
   };
 
   const handleFlush = () => {

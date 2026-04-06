@@ -34,12 +34,21 @@ export async function register(req, res) {
 
 export async function login(req, res) {
     try {
-        const { username, password } = req.body;
+        const { username, password, rememberMe } = req.body;
         
         const user = await User.findOne({ username });
         const isMatch = user && await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ message: "Invalid username or password" });
+        }
+
+        req.session.userId = user._id;
+
+        if (rememberMe) {
+            const thirtyDays = 1000 * 60 * 60 * 24 * 30;
+            req.session.cookie.maxAge = thirtyDays;
+        } else {
+            req.session.cookie.expires = false; 
         }
 
         res.status(200).json({ message: "Login successful", user });
@@ -49,3 +58,32 @@ export async function login(req, res) {
         res.status(500).json({ message: "Internal server error!" });
     }
 };
+
+export async function logout(req, res) {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: "Could not log out" });
+        }
+        res.clearCookie("connect.sid"); 
+        res.status(200).json({ message: "Logout successful" });
+    });
+}
+
+export async function getMe(req, res) {
+    try {
+        if (!req.session.userId) {
+            return res.status(401).json({ message: "Not authenticated" });
+        }
+
+        const user = await User.findById(req.session.userId).select("-password");
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Error in getMe:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}

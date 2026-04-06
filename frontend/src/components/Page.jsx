@@ -105,6 +105,15 @@ function Page({ posts, refreshPosts, user }) {
             />
           </Popup>
 
+          <Popup open={isEditPopupOpen} onClose={() => setIsEditPopupOpen(false)}>
+            <PostInput 
+              header="Edit Post" 
+              user={user}
+              closePopUp={() => setIsCreatePopupOpen(false)} 
+              refreshPosts={refreshPosts} 
+            />
+          </Popup>
+
           <Popup open={isDeletePopupOpen} onClose={() => setIsDeletePopupOpen(false)}>
             <div className="delete-post-list">
               <h3>Select a post to delete</h3>
