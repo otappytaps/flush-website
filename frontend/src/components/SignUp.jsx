@@ -12,6 +12,8 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Popup from "./Popup";
+
 function getPasswordStrength(val) {
   if (!val) return { score: 0, label: "", color: "", width: "0%" };
 
@@ -422,82 +424,69 @@ function SignUp() {
         </div>
       </div>
 
-      {isModalOpen && (
-        <div className="signup-modal" onClick={() => setIsModalOpen(false)}>
-          <div
-            className="signup-modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span
-              className="signup-close"
-              onClick={() => setIsModalOpen(false)}
-            >
-              &times;
-            </span>
-            <h3>Terms &amp; Conditions</h3>
-            <p>
-              Welcome to Flush! By signing up and using our platform, you agree
-              to the following terms and conditions:
-            </p>
-            <ol>
-              <li>
-                <strong>Acceptance of Terms</strong> — By accessing and using
-                Flush, you agree to comply with these terms. If you do not
-                agree, please do not use the service.
-              </li>
-              <li>
-                <strong>Account Responsibility</strong> — You are responsible
-                for maintaining the confidentiality of your account credentials,
-                including your username and password. You agree to notify us
-                immediately of any unauthorized use.
-              </li>
-              <li>
-                <strong>User Conduct</strong> — You agree not to engage in any
-                harmful or illegal activity on Flush, including but not limited
-                to spamming, posting offensive content, or attempting to breach
-                security.
-              </li>
-              <li>
-                <strong>Content Ownership</strong> — All content submitted by
-                users remains the property of the user. By submitting content,
-                you grant Flush a non-exclusive license to display and
-                distribute it within the platform.
-              </li>
-              <li>
-                <strong>Privacy</strong> — We respect your privacy. Personal
-                information collected will be used according to our Privacy
-                Policy and will not be shared with third parties without your
-                consent.
-              </li>
-              <li>
-                <strong>Modifications</strong> — Flush reserves the right to
-                modify these Terms and Conditions at any time. Users will be
-                notified of significant changes via email or in-app
-                notifications.
-              </li>
-              <li>
-                <strong>Termination</strong> — Flush may suspend or terminate
-                your account if you violate these Terms or engage in behavior
-                that threatens the integrity or safety of the platform.
-              </li>
-              <li>
-                <strong>Limitation of Liability</strong> — Flush is provided "as
-                is" without warranties. We are not liable for any damages
-                resulting from the use of the platform.
-              </li>
-              <li>
-                <strong>Governing Law</strong> — These Terms and Conditions are
-                governed by the laws of Madagascar. Any disputes shall be
-                resolved in accordance with applicable laws.
-              </li>
-            </ol>
-            <p>
-              By checking "I agree" and signing up, you acknowledge that you
-              have read, understood, and agree to these Terms and Conditions.
-            </p>
-          </div>
+      <Popup open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="terms-conditions">
+          <h3>Terms &amp; Conditions</h3>
+          <p>
+            Welcome to Flush! By signing up and using our platform, you agree to
+            the following terms and conditions:
+          </p>
+          <ol>
+            <li>
+              <strong>Acceptance of Terms</strong> — By accessing and using
+              Flush, you agree to comply with these terms. If you do not agree,
+              please do not use the service.
+            </li>
+            <li>
+              <strong>Account Responsibility</strong> — You are responsible for
+              maintaining the confidentiality of your account credentials,
+              including your username and password. You agree to notify us
+              immediately of any unauthorized use.
+            </li>
+            <li>
+              <strong>User Conduct</strong> — You agree not to engage in any
+              harmful or illegal activity on Flush, including but not limited to
+              spamming, posting offensive content, or attempting to breach
+              security.
+            </li>
+            <li>
+              <strong>Content Ownership</strong> — All content submitted by
+              users remains the property of the user. By submitting content, you
+              grant Flush a non-exclusive license to display and distribute it
+              within the platform.
+            </li>
+            <li>
+              <strong>Privacy</strong> — We respect your privacy. Personal
+              information collected will be used according to our Privacy Policy
+              and will not be shared with third parties without your consent.
+            </li>
+            <li>
+              <strong>Modifications</strong> — Flush reserves the right to
+              modify these Terms and Conditions at any time. Users will be
+              notified of significant changes via email or in-app notifications.
+            </li>
+            <li>
+              <strong>Termination</strong> — Flush may suspend or terminate your
+              account if you violate these Terms or engage in behavior that
+              threatens the integrity or safety of the platform.
+            </li>
+            <li>
+              <strong>Limitation of Liability</strong> — Flush is provided "as
+              is" without warranties. We are not liable for any damages
+              resulting from the use of the platform.
+            </li>
+            <li>
+              <strong>Governing Law</strong> — These Terms and Conditions are
+              governed by the laws of Madagascar. Any disputes shall be resolved
+              in accordance with applicable laws.
+            </li>
+          </ol>
+          <p>
+            By checking "I agree" and signing up, you acknowledge that you have
+            read, understood, and agree to these Terms and Conditions.
+          </p>
         </div>
-      )}
+      </Popup>
     </div>
   );
 }
