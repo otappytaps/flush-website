@@ -13,16 +13,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const PORT = 5001;
-const REACT = "https://flush-website-frontend.onrender.com/"; // http://localhost:5173/
+const REACT = "https://flush-website-frontend.onrender.com"; // http://localhost:5173/
 const MONGO_URI =
   "mongodb+srv://jenricklim_db_user:admin123456@flushcluster.zdndybn.mongodb.net/flushapp?appName=FlushCluster";
-
-app.use(
-  cors({
-    origin: REACT,
-    credentials: true,
-  }),
-);
 
 app.use(express.json());
 app.use(
