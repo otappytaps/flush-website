@@ -328,4 +328,5 @@ input.invalid {
 
 .terms-conditions {
   overflow-y: scroll;
+  scrollbar-width: thin;
 }
