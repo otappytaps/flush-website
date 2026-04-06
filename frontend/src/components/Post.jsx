@@ -182,13 +182,9 @@ function Post({ post, refreshPost, user }) {
           <span className="post-dislike-count">{post.dislikes}</span>
           <button
             className="post-comment-btn"
-              onClick={() => {
-                if (!user) {
-                  alert("Login to join the conversation!");
-                } else {
-                  setIsCommentPopupOpen(true);
-                }
-              }}
+            onClick={() => {
+              setIsCommentPopupOpen(true);
+            }}
           >
             <FontAwesomeIcon icon={faComment} />
           </button>
