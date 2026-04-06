@@ -1,6 +1,5 @@
 import "./PostInput.css";
 import TextInput from "./TextInput";
-import TagSelector from "./TagSelector";
 import { useState } from "react";
 import Error from "./Error";
 
@@ -86,7 +85,6 @@ function PostInput({ header, closePopUp, refreshPosts, user, existingPost }) {
         isErrorDisplayed={isErrorDisplayed}
         closeError={closeError}
       />
-      <TagSelector />
       <Error isErrorDisplayed={isErrorDisplayed} error={errorMessage} />
       <button className="submit-post-btn" onClick={submitPost}>
         {isEditing ? "Save Changes" : "Submit"}
