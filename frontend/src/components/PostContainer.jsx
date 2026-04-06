@@ -31,6 +31,8 @@ function PostContainer({ posts, refreshPosts, user }) {
                 dislikes: post.dislikes,
                 commentCount: post.commentCount,
                 comments: post.comments,
+                createdAt: post.createdAt,
+                updatedAt: post.updatedAt,
               }}
               refreshPost={refreshPosts}
             />
