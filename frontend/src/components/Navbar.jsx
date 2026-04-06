@@ -19,14 +19,19 @@ function Navbar({ user, setUser, onFlush, isFlushing }) {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5001/api/auth/logout", {}, { 
-        withCredentials: true 
-      });
+      await axios.post(
+        "https://flush-website-backend.onrender.com/api/auth/logout",
+        {},
+        {
+          //http://localhost:5001
+          withCredentials: true,
+        },
+      );
 
       localStorage.removeItem("flush_user");
-      
+
       setUser(null);
-      
+
       navigate("/");
     } catch (error) {
       console.error("Logout failed", error);
@@ -36,20 +41,20 @@ function Navbar({ user, setUser, onFlush, isFlushing }) {
   };
 
   const handleFlush = () => {
-    onFlush(); 
+    onFlush();
   };
 
   return (
     <nav className="navbar">
-      <button 
-        className={`flush-handle-btn ${isFlushing ? "flushing" : ""}`} 
+      <button
+        className={`flush-handle-btn ${isFlushing ? "flushing" : ""}`}
         onClick={handleFlush}
         title="Flush the feed (Refresh)"
       >
         <span className="handle-icon">🚽</span>
         <span className="handle-text">FLUSH FEED</span>
       </button>
-      
+
       <Link to="/">Home</Link>
       <Link to="/about">About Us</Link>
 

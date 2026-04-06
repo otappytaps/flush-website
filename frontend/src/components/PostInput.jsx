@@ -4,7 +4,7 @@ import TagSelector from "./TagSelector";
 import { useState } from "react";
 import Error from "./Error";
 
-function PostInput({ header, closePopUp, refreshPosts, user, existingPost}) {
+function PostInput({ header, closePopUp, refreshPosts, user, existingPost }) {
   const [titleText, setTitleText] = useState(existingPost?.title || "");
   const [contentText, setContentText] = useState(existingPost?.content || "");
 
@@ -28,8 +28,8 @@ function PostInput({ header, closePopUp, refreshPosts, user, existingPost}) {
 
     try {
       const url = isEditing
-        ? `http://localhost:5001/api/posts/${existingPost._id}`
-        : "http://localhost:5001/api/posts";
+        ? `https://flush-website-backend.onrender.com/api/posts/${existingPost._id}` //http://localhost:5001
+        : "https://flush-website-backend.onrender.com/api/posts";
       const method = isEditing ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -48,11 +48,15 @@ function PostInput({ header, closePopUp, refreshPosts, user, existingPost}) {
         refreshPosts();
       } else {
         setIsErrorDisplayed(true);
-        setErrorMessage(isEditing ? "Failed to edit post." : "Failed to create post.");
+        setErrorMessage(
+          isEditing ? "Failed to edit post." : "Failed to create post.",
+        );
       }
     } catch {
       setIsErrorDisplayed(true);
-      setErrorMessage(isEditing ? "Failed to edit post." : "Failed to create post.");
+      setErrorMessage(
+        isEditing ? "Failed to edit post." : "Failed to create post.",
+      );
     }
   }
 

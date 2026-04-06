@@ -13,24 +13,27 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const PORT = 5001;
-const REACT = "http://localhost:5173";
-const MONGO_URI = "mongodb+srv://jenricklim_db_user:admin123456@flushcluster.zdndybn.mongodb.net/flushapp?appName=FlushCluster";
+const REACT = "https://flush-website-frontend.onrender.com/"; // http://localhost:5173/
+const MONGO_URI =
+  "mongodb+srv://jenricklim_db_user:admin123456@flushcluster.zdndybn.mongodb.net/flushapp?appName=FlushCluster";
 
 app.use(express.json());
-app.use(session({
-  secret: 'admin', 
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: MONGO_URI,
-    collectionName: 'sessions'
+app.use(
+  session({
+    secret: "admin",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: MONGO_URI,
+      collectionName: "sessions",
+    }),
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   }),
-  cookie: { 
-    secure: false, 
-    httpOnly: true, 
-    maxAge: 1000 * 60 * 60 * 24 
-  }
-}));
+);
 
 app.use(
   cors({

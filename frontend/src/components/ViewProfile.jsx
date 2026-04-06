@@ -6,7 +6,7 @@ import "./ViewProfile.css";
 function ViewProfile() {
   const { username } = useParams();
   const navigate = useNavigate();
-  
+
   const [profileUser, setProfileUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,12 +14,16 @@ function ViewProfile() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const userRes = await fetch(`http://localhost:5001/api/users/profile/${username}`);
+        const userRes = await fetch(
+          `https://flush-website-backend.onrender.com/api/users/profile/${username}`,
+        ); //http://localhost:5001
         if (!userRes.ok) throw new Error("Not Found");
         const userData = await userRes.json();
         setProfileUser(userData);
 
-        const postsRes = await fetch(`http://localhost:5001/api/posts/user/${username}`);
+        const postsRes = await fetch(
+          `https://flush-website-backend.onrender.com/api/posts/user/${username}`,
+        );
         const postsData = await postsRes.json();
         setUserPosts(postsData);
       } catch (err) {
@@ -31,28 +35,38 @@ function ViewProfile() {
     fetchProfileData();
   }, [username]);
 
-  if (loading) return <div className="vp-main-container"><h1 className="vp-loading">Flushing...</h1></div>;
-  
+  if (loading)
+    return (
+      <div className="vp-main-container">
+        <h1 className="vp-loading">Flushing...</h1>
+      </div>
+    );
+
   if (!profileUser) {
     return (
       <div className="vp-main-container">
         <div className="vp-clogged-card">
           <div className="vp-clogged-icon">🪠</div>
-          
+
           <div className="vp-clogged-text">
             <h1 className="vp-clogged-title">Clog Detected!</h1>
-            <h2 className="vp-clogged-username">System Error: User @{username} not found.</h2>
-            
+            <h2 className="vp-clogged-username">
+              System Error: User @{username} not found.
+            </h2>
+
             <p className="vp-clogged-description">
-              We've checked the main trap, the septic tank, and the overflow pipe. 
-              The user you are looking for has been completely swirled away or never 
-              actually entered the system.
+              We've checked the main trap, the septic tank, and the overflow
+              pipe. The user you are looking for has been completely swirled
+              away or never actually entered the system.
             </p>
-            
+
             <div className="vp-clogged-tips">
               <strong>Tips from the Plumber:</strong>
               <ul>
-                <li>Check for typos (did you mean to flush @{username.slice(0, 3)}?).</li>
+                <li>
+                  Check for typos (did you mean to flush @{username.slice(0, 3)}
+                  ?).
+                </li>
                 <li>They may have been triple-scrubbed (banned).</li>
                 <li>The roll may simply be empty.</li>
               </ul>
@@ -70,17 +84,25 @@ function ViewProfile() {
   return (
     <div className="vp-main-container">
       <div className="vp-card">
-        <button className="vp-top-back-btn" onClick={() => navigate(-1)}>Back</button>
-        
+        <button className="vp-top-back-btn" onClick={() => navigate(-1)}>
+          Back
+        </button>
+
         <div className="vp-header">
-          <img 
-            src={profileUser.pfp ? `http://localhost:5001${profileUser.pfp}` : defaultPfp} 
-            className="vp-header-pfp" 
-            alt="pfp" 
+          <img
+            src={
+              profileUser.pfp
+                ? `https://flush-website-backend.onrender.com${profileUser.pfp}`
+                : defaultPfp
+            }
+            className="vp-header-pfp"
+            alt="pfp"
           />
           <div className="vp-user-info">
             <h1 className="vp-username">@{profileUser.username}</h1>
-            <h2 className="vp-full-name">{profileUser.firstName} {profileUser.lastName}</h2>
+            <h2 className="vp-full-name">
+              {profileUser.firstName} {profileUser.lastName}
+            </h2>
             <p className="vp-bio">{profileUser.about || "No bio provided."}</p>
           </div>
         </div>
@@ -99,9 +121,9 @@ function ViewProfile() {
                 <h3 className="vp-post-title">{post.title}</h3>
                 <p className="vp-post-content">{post.content}</p>
                 <div className="vp-post-footer">
-                   <span>🧼 {post.likes}</span>
-                   <span>💩 {post.dislikes}</span>
-                   <span>💬 {post.commentCount}</span>
+                  <span>🧼 {post.likes}</span>
+                  <span>💩 {post.dislikes}</span>
+                  <span>💬 {post.commentCount}</span>
                 </div>
               </div>
             ))

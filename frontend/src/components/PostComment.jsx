@@ -45,7 +45,7 @@ function PostComment({ post, refreshPost, comment }) {
   async function updateLikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/comment/like/${post._id}/${comment._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/comment/like/${post._id}/${comment._id}`, //http://localhost:5001
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -64,7 +64,7 @@ function PostComment({ post, refreshPost, comment }) {
   async function updateDislikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/comment/dislike/${post._id}/${comment._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/comment/dislike/${post._id}/${comment._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

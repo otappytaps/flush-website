@@ -53,7 +53,7 @@ function Post({ post, refreshPost, user }) {
   async function updateLikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/${post._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/${post._id}`, //http://localhost:5001
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -72,7 +72,7 @@ function Post({ post, refreshPost, user }) {
   async function updateDislikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/${post._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/${post._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -117,14 +117,18 @@ function Post({ post, refreshPost, user }) {
           <Link to={`/profile/${post.author}`}>
             <img
               className="post-pfp"
-              src={post.pfp ? `http://localhost:5001${post.pfp}` : defaultPfp}
+              src={
+                post.pfp
+                  ? `https://flush-website-backend.onrender.com${post.pfp}`
+                  : defaultPfp
+              }
               alt="profile-picture"
               onError={(e) => {
                 e.target.src = defaultPfp;
               }}
             />
           </Link>
-          
+
           <Link to={`/profile/${post.author}`} className="post-username-link">
             <h1 className="post-username">{post.author || "Anonymous"}</h1>
           </Link>

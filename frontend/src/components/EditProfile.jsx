@@ -14,7 +14,7 @@ function EditProfile({ user, setUser }) {
     email: user?.email || "",
     password: "",
     confirmPassword: "",
-    about: user?.about || ""
+    about: user?.about || "",
   });
 
   const handleChange = (e) => {
@@ -38,9 +38,9 @@ function EditProfile({ user, setUser }) {
 
     try {
       const response = await axios.put(
-        `http://localhost:5001/api/users/${user._id}`, 
-        formData, 
-        { withCredentials: true } 
+        `https://flush-website-backend.onrender.com/api/users/${user._id}`, //http://localhost:5001
+        formData,
+        { withCredentials: true },
       );
 
       const data = response.data;
@@ -57,7 +57,7 @@ function EditProfile({ user, setUser }) {
   if (!user) {
     return (
       <div className="edit-main-container">
-        <h1 style={{color: "white"}}>Loading profile...</h1>
+        <h1 style={{ color: "white" }}>Loading profile...</h1>
       </div>
     );
   }
@@ -67,15 +67,21 @@ function EditProfile({ user, setUser }) {
       <div className="edit-forms-box">
         <div className="edit-sidebar">
           <div className="pfp-container">
-            <img 
-                id="edit-pfp" 
-                src={(user.pfp && user.pfp !== "") ? `http://localhost:5001${user.pfp}` : defaultPfp}
-                alt="Profile" 
-                />
-            </div>
-          <h3 className="sidebar-user-name">{user.firstName} {user.lastName}</h3>
+            <img
+              id="edit-pfp"
+              src={
+                user.pfp && user.pfp !== ""
+                  ? `https://flush-website-backend.onrender.com${user.pfp}`
+                  : defaultPfp
+              }
+              alt="Profile"
+            />
+          </div>
+          <h3 className="sidebar-user-name">
+            {user.firstName} {user.lastName}
+          </h3>
           <p className="sidebar-user-email">{user.email}</p>
-      </div>
+        </div>
 
         <div className="edit-main-content">
           <h2 className="edit-title">Account Settings</h2>
@@ -84,22 +90,22 @@ function EditProfile({ user, setUser }) {
             <div className="edit-form-row">
               <div className="edit-form-grp">
                 <label className="edit-label">First Name</label>
-                <input 
-                  type="text" 
-                  name="firstName" 
-                  className="edit-input" 
-                  value={formData.firstName} 
-                  onChange={handleChange} 
+                <input
+                  type="text"
+                  name="firstName"
+                  className="edit-input"
+                  value={formData.firstName}
+                  onChange={handleChange}
                 />
               </div>
               <div className="edit-form-grp">
                 <label className="edit-label">Last Name</label>
-                <input 
-                  type="text" 
-                  name="lastName" 
-                  className="edit-input" 
-                  value={formData.lastName} 
-                  onChange={handleChange} 
+                <input
+                  type="text"
+                  name="lastName"
+                  className="edit-input"
+                  value={formData.lastName}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -107,22 +113,22 @@ function EditProfile({ user, setUser }) {
             <div className="edit-form-row">
               <div className="edit-form-grp">
                 <label className="edit-label">Username</label>
-                <input 
-                  type="text" 
-                  name="username" 
-                  className="edit-input" 
-                  value={formData.username} 
-                  onChange={handleChange} 
+                <input
+                  type="text"
+                  name="username"
+                  className="edit-input"
+                  value={formData.username}
+                  onChange={handleChange}
                 />
               </div>
               <div className="edit-form-grp">
                 <label className="edit-label">Email</label>
-                <input 
-                  type="email" 
-                  name="email" 
-                  className="edit-input" 
-                  value={formData.email} 
-                  onChange={handleChange} 
+                <input
+                  type="email"
+                  name="email"
+                  className="edit-input"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -130,46 +136,56 @@ function EditProfile({ user, setUser }) {
             <div className="edit-form-row">
               <div className="edit-form-grp">
                 <label className="edit-label">New Password</label>
-                <input 
-                  type="password" 
-                  name="password" 
-                  className="edit-input" 
-                  placeholder="Leave blank to keep current" 
-                  value={formData.password} 
-                  onChange={handleChange} 
+                <input
+                  type="password"
+                  name="password"
+                  className="edit-input"
+                  placeholder="Leave blank to keep current"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </div>
               <div className="edit-form-grp">
                 <label className="edit-label">Confirm Password</label>
-                <input 
-                  type="password" 
-                  name="confirmPassword" 
-                  className="edit-input" 
-                  placeholder="Confirm new password" 
-                  value={formData.confirmPassword} 
-                  onChange={handleChange} 
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  className="edit-input"
+                  placeholder="Confirm new password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
                 />
               </div>
             </div>
 
             <div className="edit-form-grp">
               <label className="edit-label">About Me</label>
-              <textarea 
-                name="about" 
-                className="edit-textarea" 
-                rows="4" 
-                value={formData.about} 
-                onChange={handleChange} 
+              <textarea
+                name="about"
+                className="edit-textarea"
+                rows="4"
+                value={formData.about}
+                onChange={handleChange}
                 placeholder="Tell us about yourself..."
               ></textarea>
             </div>
 
             <div className="edit-form-buttons">
-              <button type="submit" className="edit-save-btn">Save Changes</button>
-              <button type="button" className="edit-cancel-btn" onClick={() => navigate("/")}>
+              <button type="submit" className="edit-save-btn">
+                Save Changes
+              </button>
+              <button
+                type="button"
+                className="edit-cancel-btn"
+                onClick={() => navigate("/")}
+              >
                 Cancel
               </button>
-              <button type="button" className="edit-home-btn" onClick={handleBackToHome}>
+              <button
+                type="button"
+                className="edit-home-btn"
+                onClick={handleBackToHome}
+              >
                 Back to Home
               </button>
             </div>

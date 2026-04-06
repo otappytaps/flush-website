@@ -161,11 +161,15 @@ function SignUp() {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:5001/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://flush-website-backend.onrender.com/api/auth/register",
+        {
+          //http://localhost:5001
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
       const data = await response.json();
       if (response.ok) {
         alert("Account created! You can now login.");
@@ -188,7 +192,6 @@ function SignUp() {
             <form id="signupForm" onSubmit={handleSubmit}>
               <h2 className="sign-up-title">Join the Community!</h2>
 
-              {/* First Name */}
               <div className="signup-form-group">
                 <label htmlFor="firstName">First Name</label>
                 <div className="signup-input-icon">

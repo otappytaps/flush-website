@@ -11,7 +11,7 @@ function Page({ posts, refreshPosts, user }) {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [postToEdit, setPostToEdit] = useState(null);
   const [filter, setFilter] = useState("latest");
-  
+
   useEffect(() => {
     refreshPosts();
   }, []);
@@ -20,9 +20,13 @@ function Page({ posts, refreshPosts, user }) {
 
   const handleDelete = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/posts/${postId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://flush-website-backend.onrender.com/api/posts/${postId}`,
+        {
+          //http://localhost:5001
+          method: "DELETE",
+        },
+      );
       if (response.ok) {
         refreshPosts();
       }
@@ -62,21 +66,21 @@ function Page({ posts, refreshPosts, user }) {
         <div className="filter-station">
           <h3>Sort Feed</h3>
           <div className="filter-options">
-            <button 
-              className={`filter-btn ${filter === 'latest' ? 'active' : ''}`}
-              onClick={() => setFilter('latest')}
+            <button
+              className={`filter-btn ${filter === "latest" ? "active" : ""}`}
+              onClick={() => setFilter("latest")}
             >
               🌊 Latest
             </button>
-            <button 
-              className={`filter-btn ${filter === 'updated' ? 'active' : ''}`}
-              onClick={() => setFilter('updated')}
+            <button
+              className={`filter-btn ${filter === "updated" ? "active" : ""}`}
+              onClick={() => setFilter("updated")}
             >
               ✨ Recently Updated
             </button>
-            <button 
-              className={`filter-btn ${filter === 'popularity' ? 'active' : ''}`}
-              onClick={() => setFilter('popularity')}
+            <button
+              className={`filter-btn ${filter === "popularity" ? "active" : ""}`}
+              onClick={() => setFilter("popularity")}
             >
               🔥 Popular
             </button>
@@ -84,7 +88,11 @@ function Page({ posts, refreshPosts, user }) {
         </div>
       </div>
       <div className="center">
-        <PostContainer posts={filteredPosts} refreshPosts={refreshPosts} user={user} />
+        <PostContainer
+          posts={filteredPosts}
+          refreshPosts={refreshPosts}
+          user={user}
+        />
       </div>
       <div className="right">
         <div className="post-cluster">
@@ -114,20 +122,28 @@ function Page({ posts, refreshPosts, user }) {
           ) : (
             <div className="login-promo">
               <p>Want to share your thoughts?</p>
-              <Link to="/login" className="login-btn-small">Login to Flush</Link>
+              <Link to="/login" className="login-btn-small">
+                Login to Flush
+              </Link>
             </div>
           )}
 
-          <Popup open={isCreatePopupOpen} onClose={() => setIsCreatePopupOpen(false)}>
-            <PostInput 
-              header="Create Post" 
+          <Popup
+            open={isCreatePopupOpen}
+            onClose={() => setIsCreatePopupOpen(false)}
+          >
+            <PostInput
+              header="Create Post"
               user={user}
-              closePopUp={() => setIsCreatePopupOpen(false)} 
-              refreshPosts={refreshPosts} 
+              closePopUp={() => setIsCreatePopupOpen(false)}
+              refreshPosts={refreshPosts}
             />
           </Popup>
 
-          <Popup open={isEditPopupOpen} onClose={() => setIsEditPopupOpen(false)}>
+          <Popup
+            open={isEditPopupOpen}
+            onClose={() => setIsEditPopupOpen(false)}
+          >
             {postToEdit ? (
               <PostInput
                 header="Edit Post"
@@ -156,7 +172,10 @@ function Page({ posts, refreshPosts, user }) {
               </div>
             )}
           </Popup>
-          <Popup open={isDeletePopupOpen} onClose={() => setIsDeletePopupOpen(false)}>
+          <Popup
+            open={isDeletePopupOpen}
+            onClose={() => setIsDeletePopupOpen(false)}
+          >
             <div className="delete-post-list">
               <h3>Select a post to delete</h3>
               {userPosts.length === 0 ? (
@@ -166,15 +185,14 @@ function Page({ posts, refreshPosts, user }) {
                   <div
                     key={post._id}
                     className="delete-post-item"
-                    onClick={() => handleDelete(post._id)}>
-                      
+                    onClick={() => handleDelete(post._id)}
+                  >
                     <p className="delete-post-title">{post.title}</p>
                     <p className="delete-post-content">{post.content}</p>
                   </div>
                 ))
               )}
             </div>
-
           </Popup>
         </div>
       </div>

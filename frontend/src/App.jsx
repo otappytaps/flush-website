@@ -8,7 +8,7 @@ import ViewProfile from "./components/ViewProfile.jsx";
 import AboutUs from "./components/AboutUs.jsx";
 import AudioManager from "./components/AudioManager.jsx";
 import axios from "axios";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
@@ -23,10 +23,12 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/auth/me");
-        setUser(res.data); 
+        const res = await axios.get(
+          "https://flush-website-backend.onrender.com/api/auth/me",
+        ); //http://localhost:5001
+        setUser(res.data);
       } catch (err) {
-        console.log("No active session found");
+        console.log("No active session found", err);
         setUser(null);
       } finally {
         setTimeout(() => {
@@ -34,7 +36,7 @@ function App() {
 
           setTimeout(() => {
             setLoading(false);
-          }, 800); 
+          }, 800);
         }, 2000);
       }
     };
@@ -45,7 +47,9 @@ function App() {
 
   const refreshPosts = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/posts");
+      const res = await fetch(
+        "https://flush-website-backend.onrender.com/api/posts",
+      );
       const data = await res.json();
       setPosts(data);
     } catch (err) {
@@ -56,14 +60,14 @@ function App() {
   const handleGlobalFlush = () => {
     setIsFlushing(true);
     AudioManager.playFlush();
-  
+
     setTimeout(() => {
-      refreshPosts(); 
-    }, 600); 
+      refreshPosts();
+    }, 600);
 
     setTimeout(() => {
       setIsFlushing(false);
-    }, 1200); 
+    }, 1200);
   };
 
   if (loading) {
@@ -85,11 +89,11 @@ function App() {
           path="/"
           element={
             <>
-              <Navbar 
-                user={user} 
-                setUser={setUser} 
-                onFlush={handleGlobalFlush} 
-                isFlushing={isFlushing} 
+              <Navbar
+                user={user}
+                setUser={setUser}
+                onFlush={handleGlobalFlush}
+                isFlushing={isFlushing}
               />
               <div className={isFlushing ? "flushing-contents" : ""}>
                 <Banner user={user} refreshAllPosts={refreshPosts} />
@@ -98,23 +102,33 @@ function App() {
             </>
           }
         />
-        <Route 
-          path="/profile/:username" 
+        <Route
+          path="/profile/:username"
           element={
             <>
-              <Navbar user={user} setUser={setUser} onFlush={handleGlobalFlush} isFlushing={isFlushing} />
+              <Navbar
+                user={user}
+                setUser={setUser}
+                onFlush={handleGlobalFlush}
+                isFlushing={isFlushing}
+              />
               <ViewProfile />
             </>
-          } 
+          }
         />
-        <Route 
-          path="/edit-profile" 
+        <Route
+          path="/edit-profile"
           element={
             <>
-              <Navbar user={user} setUser={setUser} onFlush={handleGlobalFlush} isFlushing={isFlushing} />
+              <Navbar
+                user={user}
+                setUser={setUser}
+                onFlush={handleGlobalFlush}
+                isFlushing={isFlushing}
+              />
               <EditProfile user={user} setUser={setUser} />
             </>
-          } 
+          }
         />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<SignUp />} />

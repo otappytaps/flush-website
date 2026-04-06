@@ -24,7 +24,7 @@ function CommentInput({
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/${post._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/${post._id}`, //http://localhost:5001
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

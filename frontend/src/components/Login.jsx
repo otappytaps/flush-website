@@ -17,20 +17,18 @@ function Login({ setUser }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/auth/login",
+        "https://flush-website-backend.onrender.com/api/auth/login", //http://localhost:5001
         { username, password, rememberMe },
-        { withCredentials: true } 
+        { withCredentials: true },
       );
 
       const data = response.data;
 
       localStorage.setItem("flush_user", JSON.stringify(data.user));
-      
+
       setUser(data.user);
       navigate("/");
-      
     } catch (err) {
-
       const message = err.response?.data?.message || "Login failed";
       alert(message);
       console.error("Login error:", err);
@@ -71,12 +69,12 @@ function Login({ setUser }) {
             </div>
 
             <div className="login-remember">
-              <input 
-                type="checkbox" 
-                id="remember" 
-                name="remember" 
+              <input
+                type="checkbox"
+                id="remember"
+                name="remember"
                 checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)} 
+                onChange={(e) => setRememberMe(e.target.checked)}
               />
               <label htmlFor="remember">Remember Me</label>
             </div>
