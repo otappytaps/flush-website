@@ -25,7 +25,7 @@ function Post({ post, refreshPost, user }) {
     borderRadius: "15px",
     backgroundColor: isLiked ? "rgb(129, 251, 236)" : "rgb(222, 222, 222)",
     border: "none",
-    cursor: "pointer",
+    cursor: user ? "pointer" : "not-allowed",
     transition: "all 0.2s ease-in-out",
   };
 
@@ -38,7 +38,7 @@ function Post({ post, refreshPost, user }) {
     borderRadius: "15px",
     backgroundColor: isDisliked ? " rgb(215, 177, 157)" : "rgb(222, 222, 222)",
     border: "none",
-    cursor: "pointer",
+    cursor: user ? "pointer" : "not-allowed",
     transition: "all 0.2s ease-in-out",
   };
 
@@ -89,6 +89,11 @@ function Post({ post, refreshPost, user }) {
   }
 
   function handleLike() {
+    if (!user) {
+      alert("You must be logged in to scrub this post! 🧼");
+      return;
+    }
+
     if (isDisliked == false) {
       if (isLiked) {
         updateLikes(-1);
@@ -100,6 +105,11 @@ function Post({ post, refreshPost, user }) {
   }
 
   function handleDislike() {
+    if (!user) {
+      alert("You must be logged in to flush this post! 💩");
+      return;
+    }
+
     if (isLiked == false) {
       if (isDisliked) {
         updateDislikes(-1);
@@ -172,7 +182,13 @@ function Post({ post, refreshPost, user }) {
           <span className="post-dislike-count">{post.dislikes}</span>
           <button
             className="post-comment-btn"
-            onClick={() => setIsCommentPopupOpen(true)}
+              onClick={() => {
+                if (!user) {
+                  alert("Login to join the conversation!");
+                } else {
+                  setIsCommentPopupOpen(true);
+                }
+              }}
           >
             <FontAwesomeIcon icon={faComment} />
           </button>
