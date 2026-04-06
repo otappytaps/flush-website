@@ -66,6 +66,15 @@
   text-decoration: none;
   color: #000000;
 }
+
+.post-edited-tag {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-style: italic;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
 .post-pfp {
   width: 35px;
   height: 35px;
