@@ -1,7 +1,7 @@
 import "./CommentContainer.css";
 import PostComment from "./PostComment";
 
-function CommentContainer({ post, refreshPost, isCreateCommentOpen }) {
+function CommentContainer({ post, refreshPost, isCreateCommentOpen, user }) {
   if (isCreateCommentOpen) return null;
 
   return (
@@ -20,6 +20,7 @@ function CommentContainer({ post, refreshPost, isCreateCommentOpen }) {
               dislikes: comment.dislikes,
               date: comment.date,
             }}
+            user={user}
           />
         );
       })}

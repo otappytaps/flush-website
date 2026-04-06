@@ -2,7 +2,7 @@ import "./PostComment.css";
 import defaultPfp from "../assets/default-pfp.png";
 import { useState } from "react";
 
-function PostComment({ post, refreshPost, comment }) {
+function PostComment({ post, refreshPost, comment, user }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [isLikeBtnHovered, setIsLikeBtnHovered] = useState(false);
@@ -81,6 +81,10 @@ function PostComment({ post, refreshPost, comment }) {
   }
 
   function handleLike() {
+    if (!user) {
+      alert("You must be logged in to flush this post! 💩");
+      return;
+    }
     if (isDisliked == false) {
       if (isLiked) {
         updateLikes(-1);
@@ -92,6 +96,10 @@ function PostComment({ post, refreshPost, comment }) {
   }
 
   function handleDislike() {
+    if (!user) {
+      alert("You must be logged in to flush this post! 💩");
+      return;
+    }
     if (isLiked == false) {
       if (isDisliked) {
         updateDislikes(-1);

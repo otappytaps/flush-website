@@ -76,6 +76,7 @@ function CommentSection({ post, refreshPost, user }) {
         post={post}
         refreshPost={refreshPost}
         isCreateCommentOpen={isCreateCommentOpen}
+        user={user}
       />
     </div>
   );
