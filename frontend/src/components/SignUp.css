@@ -325,3 +325,7 @@ input.invalid {
 .tooltip-box li.met {
   color: #28a745;
 }
+
+.terms-conditions {
+  overflow-y: scroll;
+}
