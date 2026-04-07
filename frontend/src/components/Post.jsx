@@ -15,6 +15,7 @@ function Post({ post, refreshPost, user }) {
   const [isDislikeBtnHovered, setIsDislikeBtnHovered] = useState(false);
 
   const [isCommentPopupOpen, setIsCommentPopupOpen] = useState(false);
+  const [authAlert, setAuthAlert] = useState(null);
 
   const likeBtnStyle = {
     display: "flex",
@@ -25,7 +26,7 @@ function Post({ post, refreshPost, user }) {
     borderRadius: "15px",
     backgroundColor: isLiked ? "rgb(129, 251, 236)" : "rgb(222, 222, 222)",
     border: "none",
-    cursor: "pointer",
+    cursor: user ? "pointer" : "not-allowed",
     transition: "all 0.2s ease-in-out",
   };
 
@@ -38,7 +39,7 @@ function Post({ post, refreshPost, user }) {
     borderRadius: "15px",
     backgroundColor: isDisliked ? " rgb(215, 177, 157)" : "rgb(222, 222, 222)",
     border: "none",
-    cursor: "pointer",
+    cursor: user ? "pointer" : "not-allowed",
     transition: "all 0.2s ease-in-out",
   };
 
@@ -53,7 +54,7 @@ function Post({ post, refreshPost, user }) {
   async function updateLikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/${post._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/${post._id}`, //http://localhost:5001
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -72,7 +73,7 @@ function Post({ post, refreshPost, user }) {
   async function updateDislikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/${post._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/${post._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -89,6 +90,11 @@ function Post({ post, refreshPost, user }) {
   }
 
   function handleLike() {
+    if (!user) {
+      setAuthAlert("You must be logged in to scrub this post! 🧼");
+      return;
+    }
+
     if (isDisliked == false) {
       if (isLiked) {
         updateLikes(-1);
@@ -100,6 +106,11 @@ function Post({ post, refreshPost, user }) {
   }
 
   function handleDislike() {
+    if (!user) {
+      setAuthAlert("You must be logged in to flush this post! 💩");
+      return;
+    }
+
     if (isLiked == false) {
       if (isDisliked) {
         updateDislikes(-1);
@@ -117,20 +128,29 @@ function Post({ post, refreshPost, user }) {
           <Link to={`/profile/${post.author}`}>
             <img
               className="post-pfp"
-              src={post.pfp ? `http://localhost:5001${post.pfp}` : defaultPfp}
+              src={
+                post.pfp
+                  ? `https://flush-website-backend.onrender.com${post.pfp}`
+                  : defaultPfp
+              }
               alt="profile-picture"
               onError={(e) => {
                 e.target.src = defaultPfp;
               }}
             />
           </Link>
-          
+
           <Link to={`/profile/${post.author}`} className="post-username-link">
             <h1 className="post-username">{post.author || "Anonymous"}</h1>
           </Link>
 
           <h1 className="post-dot">•</h1>
           <h1 className="post-date">{post.date}</h1>
+
+          {post.updatedAt && post.createdAt && 
+            new Date(post.updatedAt).getTime() !== new Date(post.createdAt).getTime() && (
+                <span className="post-edited-tag">(edited)</span>
+            )}
         </div>
 
         <h3>{post.title}</h3>
@@ -168,18 +188,34 @@ function Post({ post, refreshPost, user }) {
           <span className="post-dislike-count">{post.dislikes}</span>
           <button
             className="post-comment-btn"
-            onClick={() => setIsCommentPopupOpen(true)}
+            onClick={() => {
+              setIsCommentPopupOpen(true);
+            }}
           >
             <FontAwesomeIcon icon={faComment} />
           </button>
           <span className="post-comment-count">{post.commentCount}</span>
         </div>
       </div>
+      
       <Popup
         open={isCommentPopupOpen}
         onClose={() => setIsCommentPopupOpen(false)}
       >
         <CommentSection post={post} refreshPost={refreshPost} user={user} />
+      </Popup>
+
+      <Popup open={!!authAlert} onClose={() => setAuthAlert(null)}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
+          justifyContent: "center", height: "100%", gap: "16px", padding: "20px", textAlign: "center" }}>
+          <span style={{ fontSize: "48px" }}>{authAlert?.includes("scrub") ? "🧼" : "💩"}</span>
+          <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>{authAlert}</p>
+          <button onClick={() => setAuthAlert(null)}
+            style={{ padding: "10px 24px", borderRadius: "20px", border: "none",
+              background: "#38b6ff", color: "white", fontWeight: 700, cursor: "pointer" }}>
+            Got it
+          </button>
+        </div>
       </Popup>
     </>
   );
