@@ -517,7 +517,7 @@ function SignUp() {
 
       <Popup open={showSuccessPopup} onClose={() => { setShowSuccessPopup(false); navigate("/login"); }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: "16px", textAlign: "center", padding: "20px" }}>
-          <h3 style={{ fontSize: "22px", color: "#333" }}>Account Created! 🎉</h3>
+          <h3 style={{ fontSize: "22px", color: "#333" }}>Account Created!</h3>
           <p style={{ color: "#666", fontSize: "14px" }}>You can now log in with your new account.</p>
           <button
             onClick={() => { setShowSuccessPopup(false); navigate("/login"); }}
