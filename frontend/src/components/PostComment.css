@@ -121,9 +121,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 300px;
 }
 
-.edit-submit-post-btn {
+.edit-submit-comment-btn {
   align-self: center;
   background-color: #00e38c;
   color: white;
@@ -134,4 +135,8 @@
   font-size: 15px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+}
+
+.edit-submit-comment-btn:hover {
+  transform: scale(1.05);
 }
