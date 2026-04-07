@@ -47,21 +47,26 @@ export async function createPost(req, res) {
 
 export async function updatePost(req, res) {
   try {
+    const { title, content } = req.body;
+    
+    const isActualEdit = title !== undefined || content !== undefined;
+
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
       {
         returnDocument: "after",
         runValidators: true,
-      },
+        timestamps: isActualEdit,
+      }
     );
 
     if (!updatedPost)
       return res.status(404).json({ message: "Post not found" });
 
-    res.status(200).json({ message: "Note updated succesfully" });
+    res.status(200).json(updatedPost); 
   } catch (error) {
-    console.error("Error in updateNote controller", error);
+    console.error("Error in updatePost controller", error);
     res.status(500).json({ message: "Internal server error!" });
   }
 }
