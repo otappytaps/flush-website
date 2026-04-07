@@ -47,7 +47,7 @@ function AboutUs() {
                   <li>express</li>
                   <li>mongoose & mongodb</li>
                   <li>jsonwebtoken & bcrypt</li>
-                  <li>dotenv & cors</li>
+                  <li>cors</li>
                   <li>express-session</li>
                 </ul>
               </div>
