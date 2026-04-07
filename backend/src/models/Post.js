@@ -42,6 +42,7 @@ const postSchema = new mongoose.Schema(
         likes: { type: Number, default: 0 },
         dislikes: { type: Number, default: 0 },
         date: { type: String, required: true },
+        isEdited: { type: Boolean, default: false },
       },
     ],
     commentCount: { type: Number, default: 0 },

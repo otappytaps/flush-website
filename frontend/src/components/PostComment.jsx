@@ -2,6 +2,7 @@ import "./PostComment.css";
 import defaultPfp from "../assets/default-pfp.png";
 import { useState } from "react";
 import Popup from "./Popup";
+import TextInput from "./TextInput";
 
 function PostComment({ post, refreshPost, comment, user }) {
   const [isLiked, setIsLiked] = useState(false);
@@ -9,6 +10,12 @@ function PostComment({ post, refreshPost, comment, user }) {
   const [isLikeBtnHovered, setIsLikeBtnHovered] = useState(false);
   const [isDislikeBtnHovered, setIsDislikeBtnHovered] = useState(false);
   const [authAlert, setAuthAlert] = useState(null);
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(comment.content);
+  const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const likeBtnStyle = {
     display: "flex",
@@ -145,6 +152,36 @@ function PostComment({ post, refreshPost, comment, user }) {
     }
   }
 
+  async function submitEditedComment() {
+    if (editedContent === "") {
+      setErrorMessage("Fields cannot be empty.");
+      setIsErrorDisplayed(true);
+      return;
+    }
+
+    setIsEditing(false);
+    try {
+      const response = await fetch(
+        `https://flush-website-backend.onrender.com/api/posts/comment/update/${post._id}/${comment._id}`, //http://localhost:5001
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: editedContent }),
+        },
+      );
+      if (response.ok) {
+        refreshPost();
+      } else {
+        setAuthAlert(
+          "The pipes are stuck! Server couldn't scrub the comment. 🛠️",
+        );
+      }
+    } catch (error) {
+      setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <div className="comment">
@@ -162,7 +199,32 @@ function PostComment({ post, refreshPost, comment, user }) {
           <h1 className="post-date">{comment.date}</h1>
         </div>
 
-        <p>{comment.text}</p>
+        {isEditing ? (
+          <>
+            <TextInput
+              label="Comment"
+              placeholder="Write a comment..."
+              maxLength="500"
+              height="100px"
+              updateText={setEditedContent}
+              isErrorDisplayed={isErrorDisplayed}
+              closeError={() => setIsErrorDisplayed(false)}
+            />
+            <Error
+              isErrorDisplayed={isErrorDisplayed}
+              error={errorMessage}
+            ></Error>
+
+            <button
+              className="submit-comment-btn"
+              onClick={submitEditedComment}
+            >
+              Submit
+            </button>
+          </>
+        ) : (
+          <p>{comment.text}</p>
+        )}
         <div className="comment-interactions">
           <button
             className="comment-like-btn"
@@ -194,13 +256,17 @@ function PostComment({ post, refreshPost, comment, user }) {
           </button>
           <span className="comment-dislike-count">{comment.dislikes}</span>
 
-          <button
-            className="delete-comment-btn"
-            onClick={() => deleteComment(comment._id)}
-          >
-            🗑️
-          </button>
-          <button className="edit-comment-btn">✏️</button>
+          {user == comment.author ? (
+            <>
+              <button
+                className="delete-comment-btn"
+                onClick={() => deleteComment(comment._id)}
+              >
+                🗑️
+              </button>
+              <button className="edit-comment-btn">✏️</button>)
+            </>
+          ) : null}
         </div>
       </div>
       <Popup open={!!authAlert} onClose={() => setAuthAlert(null)}>

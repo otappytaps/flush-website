@@ -9,6 +9,7 @@ import {
   updateLikeToCommentByPostAndCommentId,
   updateDislikeToCommentByPostAndCommentId,
   deleteCommentByPostAndCommentId,
+  updateCommentByPostAndCommentId,
   searchPosts,
 } from "../controllers/postController.js";
 
@@ -19,6 +20,11 @@ router.get("/search", searchPosts);
 router.delete(
   "/comment/delete/:postId/:commentId",
   deleteCommentByPostAndCommentId,
+);
+
+router.put(
+  "/comment/update/:postId/:commentId",
+  updateCommentByPostAndCommentId,
 );
 
 router.put(
