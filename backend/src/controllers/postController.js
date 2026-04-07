@@ -168,6 +168,7 @@ export const deleteCommentByPostAndCommentId = async (req, res) => {
     }
 
     post.comments.splice(commentIndex, 1);
+    post.commentCount = post.comments.length;
     await post.save();
 
     res.send({ message: "Comment deleted successfully" });
