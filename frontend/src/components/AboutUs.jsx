@@ -38,6 +38,31 @@ function AboutUs() {
             </p>
           </section>
 
+          <section className="about-section">
+            <h2>Tech Stack & Libraries</h2>
+            <div className="libraries-container">
+              <div className="library-group">
+                <h3>Backend</h3>
+                <ul>
+                  <li>express</li>
+                  <li>mongoose & mongodb</li>
+                  <li>jsonwebtoken & bcrypt</li>
+                  <li>dotenv & cors</li>
+                  <li>express-session</li>
+                </ul>
+              </div>
+              <div className="library-group">
+                <h3>Frontend</h3>
+                <ul>
+                  <li>react-router-dom</li>
+                  <li>axios</li>
+                  <li>react-hot-toast</li>
+                  <li>fortawesome (icons)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
           <div className="about-features-grid">
             <div className="feature-item">
               <h3>🌊 Fluid</h3>
