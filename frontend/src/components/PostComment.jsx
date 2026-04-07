@@ -1,13 +1,14 @@
 import "./PostComment.css";
 import defaultPfp from "../assets/default-pfp.png";
 import { useState } from "react";
+import Popup from "./Popup";
 
-function PostComment({ post, refreshPost, comment }) {
+function PostComment({ post, refreshPost, comment, user }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [isLikeBtnHovered, setIsLikeBtnHovered] = useState(false);
   const [isDislikeBtnHovered, setIsDislikeBtnHovered] = useState(false);
-
+  const [authAlert, setAuthAlert] = useState(null);
   const likeBtnStyle = {
     display: "flex",
     alignItems: "center",
@@ -45,7 +46,7 @@ function PostComment({ post, refreshPost, comment }) {
   async function updateLikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/comment/like/${post._id}/${comment._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/comment/like/${post._id}/${comment._id}`, //http://localhost:5001
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -64,7 +65,7 @@ function PostComment({ post, refreshPost, comment }) {
   async function updateDislikes(value) {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/posts/comment/dislike/${post._id}/${comment._id}`,
+        `https://flush-website-backend.onrender.com/api/posts/comment/dislike/${post._id}/${comment._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -81,6 +82,10 @@ function PostComment({ post, refreshPost, comment }) {
   }
 
   function handleLike() {
+    if (!user) {
+      setAuthAlert("You must be logged in to scrub this post! 🧼");
+      return;
+    }
     if (isDisliked == false) {
       if (isLiked) {
         updateLikes(-1);
@@ -92,6 +97,10 @@ function PostComment({ post, refreshPost, comment }) {
   }
 
   function handleDislike() {
+    if (!user) {
+      setAuthAlert("You must be logged in to flush this post! 💩");
+      return;
+    }
     if (isLiked == false) {
       if (isDisliked) {
         updateDislikes(-1);
@@ -103,6 +112,7 @@ function PostComment({ post, refreshPost, comment }) {
   }
 
   return (
+    <>
     <div className="comment">
       <div className="comment-author-info">
         <img
@@ -151,6 +161,21 @@ function PostComment({ post, refreshPost, comment }) {
         <span className="comment-dislike-count">{comment.dislikes}</span>
       </div>
     </div>
+    
+    <Popup open={!!authAlert} onClose={() => setAuthAlert(null)}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
+        justifyContent: "center", height: "100%", gap: "16px", padding: "20px", textAlign: "center" }}>
+        <span style={{ fontSize: "48px" }}>{authAlert?.includes("scrub") ? "🧼" : "💩"}</span>
+        <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>{authAlert}</p>
+        <button onClick={() => setAuthAlert(null)}
+          style={{ padding: "10px 24px", borderRadius: "20px", border: "none",
+            background: "#38b6ff", color: "white", fontWeight: 700, cursor: "pointer" }}>
+          Got it
+        </button>
+      </div>
+    </Popup>
+
+  </>
   );
 }
 
