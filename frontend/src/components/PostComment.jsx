@@ -3,6 +3,7 @@ import defaultPfp from "../assets/default-pfp.png";
 import { useState } from "react";
 import Popup from "./Popup";
 import TextInput from "./TextInput";
+import Error from "./Error";
 
 function PostComment({ post, refreshPost, comment, user }) {
   const [isLiked, setIsLiked] = useState(false);
