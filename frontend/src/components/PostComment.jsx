@@ -201,7 +201,7 @@ function PostComment({ post, refreshPost, comment, user }) {
         </div>
 
         {isEditing ? (
-          <>
+          <div className="edit-comment">
             <TextInput
               label="Comment"
               placeholder="Write a comment..."
@@ -218,12 +218,12 @@ function PostComment({ post, refreshPost, comment, user }) {
             ></Error>
 
             <button
-              className="submit-comment-btn"
+              className="edit-submit-comment-btn"
               onClick={submitEditedComment}
             >
               Submit
             </button>
-          </>
+          </div>
         ) : (
           <p>{comment.text}</p>
         )}
