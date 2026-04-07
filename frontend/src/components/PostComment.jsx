@@ -60,10 +60,13 @@ function PostComment({ post, refreshPost, comment, user }) {
       if (response.ok) {
         refreshPost();
       } else {
-        setAuthAlert("The pipes are stuck! Server couldn't scrub the comment. 🛠️");
+        setAuthAlert(
+          "The pipes are stuck! Server couldn't scrub the comment. 🛠️",
+        );
       }
     } catch (error) {
       setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
+      console.log(error);
     }
   }
 
@@ -83,10 +86,13 @@ function PostComment({ post, refreshPost, comment, user }) {
       if (response.ok) {
         refreshPost();
       } else {
-        setAuthAlert("The pipes are stuck! Server couldn't scrub the comment. 🛠️");
+        setAuthAlert(
+          "The pipes are stuck! Server couldn't scrub the comment. 🛠️",
+        );
       }
     } catch (error) {
       setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
+      console.log(error);
     }
   }
 
@@ -117,6 +123,25 @@ function PostComment({ post, refreshPost, comment, user }) {
         updateDislikes(1);
       }
       setIsDisliked(!isDisliked);
+    }
+  }
+
+  async function deleteComment(commentId) {
+    try {
+      const response = await fetch(
+        `https://flush-website-backend.onrender.com/api/posts/comment/delete/${post._id}/${commentId}`, //http://localhost:5001
+        { method: "DELETE" },
+      );
+      if (response.ok) {
+        refreshPost();
+      } else {
+        setAuthAlert(
+          "The pipes are stuck! Server couldn't scrub the comment. 🛠️",
+        );
+      }
+    } catch (error) {
+      setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
+      console.log(error);
     }
   }
 
@@ -168,21 +193,51 @@ function PostComment({ post, refreshPost, comment, user }) {
             <span className="comment-icon">💩</span>
           </button>
           <span className="comment-dislike-count">{comment.dislikes}</span>
+
+          <button
+            className="delete-comment-btn"
+            onClick={() => deleteComment(comment._id)}
+          >
+            🗑️
+          </button>
+          <button className="edit-comment-btn">✏️</button>
         </div>
       </div>
       <Popup open={!!authAlert} onClose={() => setAuthAlert(null)}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
-          justifyContent: "center", height: "100%", gap: "16px", padding: "20px", textAlign: "center" }}>
-          <span style={{ fontSize: "48px" }}>{authAlert?.includes("scrub") ? "🧼" : "💩"}</span>
-          <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>{authAlert}</p>
-          <button onClick={() => setAuthAlert(null)}
-            style={{ padding: "10px 24px", borderRadius: "20px", border: "none",
-              background: "#38b6ff", color: "white", fontWeight: 700, cursor: "pointer" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: "16px",
+            padding: "20px",
+            textAlign: "center",
+          }}
+        >
+          <span style={{ fontSize: "48px" }}>
+            {authAlert?.includes("scrub") ? "🧼" : "💩"}
+          </span>
+          <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>
+            {authAlert}
+          </p>
+          <button
+            onClick={() => setAuthAlert(null)}
+            style={{
+              padding: "10px 24px",
+              borderRadius: "20px",
+              border: "none",
+              background: "#38b6ff",
+              color: "white",
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
             Got it
           </button>
         </div>
       </Popup>
-
     </>
   );
 }

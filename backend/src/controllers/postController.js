@@ -48,11 +48,11 @@ export async function createPost(req, res) {
 export async function updatePost(req, res) {
   try {
     const { title, content } = req.body;
-    
+
     const changingText = title !== undefined || content !== undefined;
 
     const updateData = { ...req.body };
-    
+
     if (changingText) {
       updateData.isEdited = true;
     }
@@ -63,11 +63,11 @@ export async function updatePost(req, res) {
       {
         returnDocument: "after",
         runValidators: true,
-        timestamps: changingText 
-      }
+        timestamps: changingText,
+      },
     );
 
-    if (!updatedPost) 
+    if (!updatedPost)
       return res.status(404).json({ message: "Post not found" });
     res.status(200).json(updatedPost);
   } catch (error) {
@@ -155,9 +155,32 @@ export const updateDislikeToCommentByPostAndCommentId = async (req, res) => {
   }
 };
 
+export const deleteCommentByPostAndCommentId = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params;
+    const post = await Post.findById(postId);
+    const commentIndex = post.comments.findIndex(
+      (comment) => comment._id.toString() === commentId,
+    );
+
+    if (commentIndex === -1) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    post.comments.splice(commentIndex, 1);
+    await post.save();
+
+    res.send({ message: "Comment deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error deleting comment", error: error.message });
+  }
+};
+
 export const searchPosts = async (req, res) => {
   try {
-    const { q, type } = req.query; 
+    const { q, type } = req.query;
 
     if (!q) return res.status(400).json({ message: "Search query required" });
 
@@ -170,8 +193,8 @@ export const searchPosts = async (req, res) => {
         $or: [
           { title: { $regex: q, $options: "i" } },
           { content: { $regex: q, $options: "i" } },
-          { author: { $regex: q, $options: "i" } }
-        ]
+          { author: { $regex: q, $options: "i" } },
+        ],
       };
     }
 

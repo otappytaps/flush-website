@@ -71,6 +71,7 @@ function Post({ post, refreshPost, user }) {
       }
     } catch (error) {
       setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
+      console.log(error);
     }
   }
 
@@ -90,6 +91,7 @@ function Post({ post, refreshPost, user }) {
       if (response.ok) refreshPost();
     } catch (error) {
       setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
+      console.log(error);
     }
   }
 
@@ -151,9 +153,7 @@ function Post({ post, refreshPost, user }) {
           <h1 className="post-dot">•</h1>
           <h1 className="post-date">{post.date}</h1>
 
-          {post.isEdited && (
-            <span className="post-edited-tag">(edited)</span>
-          )}
+          {post.isEdited && <span className="post-edited-tag">(edited)</span>}
         </div>
 
         <h3>{post.title}</h3>
@@ -207,13 +207,36 @@ function Post({ post, refreshPost, user }) {
         <CommentSection post={post} refreshPost={refreshPost} user={user} />
       </Popup>
       <Popup open={!!authAlert} onClose={() => setAuthAlert(null)}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
-          justifyContent: "center", height: "100%", gap: "16px", padding: "20px", textAlign: "center" }}>
-          <span style={{ fontSize: "48px" }}>{authAlert?.includes("scrub") ? "🧼" : "💩"}</span>
-          <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>{authAlert}</p>
-          <button onClick={() => setAuthAlert(null)}
-            style={{ padding: "10px 24px", borderRadius: "20px", border: "none",
-              background: "#38b6ff", color: "white", fontWeight: 700, cursor: "pointer" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: "16px",
+            padding: "20px",
+            textAlign: "center",
+          }}
+        >
+          <span style={{ fontSize: "48px" }}>
+            {authAlert?.includes("scrub") ? "🧼" : "💩"}
+          </span>
+          <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>
+            {authAlert}
+          </p>
+          <button
+            onClick={() => setAuthAlert(null)}
+            style={{
+              padding: "10px 24px",
+              borderRadius: "20px",
+              border: "none",
+              background: "#38b6ff",
+              color: "white",
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
             Got it
           </button>
         </div>

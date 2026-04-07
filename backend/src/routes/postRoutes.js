@@ -8,12 +8,19 @@ import {
   getPostsByUsername,
   updateLikeToCommentByPostAndCommentId,
   updateDislikeToCommentByPostAndCommentId,
+  deleteCommentByPostAndCommentId,
   searchPosts,
 } from "../controllers/postController.js";
 
 const router = express.Router();
 
 router.get("/search", searchPosts);
+
+router.delete(
+  "/comment/delete/:postId/:commentId",
+  deleteCommentByPostAndCommentId,
+);
+
 router.put(
   "/comment/like/:postId/:commentId",
   updateLikeToCommentByPostAndCommentId,

@@ -81,3 +81,37 @@
 .post:last-child {
   margin-bottom: 0;
 }
+
+.delete-comment-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff3131;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-comment-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(222, 222, 222);
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-comment-btn:hover {
+  background-color: rgb(198, 198, 198);
+}
+
+.delete-comment-btn:hover {
+  background-color: #ff0000;
+}
