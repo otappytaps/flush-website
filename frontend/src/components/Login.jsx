@@ -5,15 +5,20 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import "./Login.css";
+import Error from "./Error";
 
 function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await axios.post(
@@ -29,11 +34,17 @@ function Login({ setUser }) {
       setUser(data.user);
       navigate("/");
     } catch (err) {
-      const message = err.response?.data?.message || "Login failed";
-      alert(message);
-      console.error("Login error:", err);
+      const message = err.response?.data?.message || "Login failed.";
+      setErrorMessage(message);
+      setIsErrorDisplayed(true);
+    } finally {
+      setIsLoading(false); 
     }
   };
+
+  function closeError() {
+    setIsErrorDisplayed(false);
+  }
 
   return (
     <div className="login-page-container">
@@ -50,7 +61,12 @@ function Login({ setUser }) {
                   type="text"
                   placeholder="Enter username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  className={isErrorDisplayed ? "input-error" : ""}
+                  onChange={
+                    (e) => {
+                      setUsername(e.target.value);
+                      closeError();
+                    }}
                 />
               </div>
             </div>
@@ -63,7 +79,11 @@ function Login({ setUser }) {
                   type="password"
                   placeholder="Enter password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  className={isErrorDisplayed ? "input-error" : ""}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    closeError();
+                  }}
                 />
               </div>
             </div>
@@ -79,8 +99,8 @@ function Login({ setUser }) {
               <label htmlFor="remember">Remember Me</label>
             </div>
 
-            <button type="submit" className="login-btn">
-              Login
+            <button type="submit" className="login-btn" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
             </button>
 
             <div className="login-signup-container">
@@ -90,6 +110,7 @@ function Login({ setUser }) {
                   <Link to="/signup"> Sign Up</Link>
                 </span>
               </p>
+              <Error isErrorDisplayed={isErrorDisplayed} error={errorMessage} />
             </div>
           </form>
         </div>
