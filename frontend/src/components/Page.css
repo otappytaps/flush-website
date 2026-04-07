@@ -21,87 +21,59 @@
 .post-cluster {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   margin-top: 25px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 30px;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(56, 182, 255, 0.1);
-}
-
-.create-post-btn, .edit-post-btn, .delete-post-btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  padding: 14px 24px;
-  width: 220px;
-  border-radius: 18px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: none;
-  position: relative;
-}
-
-.create-post-btn span, .edit-post-btn span, .delete-post-btn span {
-  font-size: 18px;
 }
 
 .create-post-btn {
   background: linear-gradient(135deg, #38b6ff 0%, #0072ff 100%);
   color: white;
-  box-shadow: 0 6px 0 #0056c7, 0 10px 20px rgba(0, 110, 255, 0.2);
+  padding: 10px 0px;
+  width: 200px;
+  border: none;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .create-post-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 0 #0056c7, 0 12px 25px rgba(0, 110, 255, 0.3);
-}
-
-.create-post-btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #0056c7;
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .edit-post-btn {
-  background: white;
-  color: #1e4a8d;
-  border: 2px solid #e1e9f3;
-  box-shadow: 0 6px 0 #d1d9e2;
+  background: linear-gradient(135deg, #ffffff 0%, #f0faff 100%);
+  color: #38b6ff;
+  border: 2px solid #38b6ff;
+  padding: 10px 0px;
+  width: 200px;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .edit-post-btn:hover {
-  background: #f8fbff;
-  border-color: #38b6ff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 0 #38b6ff33;
-}
-
-.edit-post-btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #d1d9e2;
+  transform: scale(1.05);
+  background-color: #f0faff;
 }
 
 .delete-post-btn {
-  background: #fff5f5;
-  color: #f65959;
-  border: 2px solid #ffeded;
-  box-shadow: 0 6px 0 #f6595922;
+  background: linear-gradient(135deg, #ff5f6d 0%, #ff3131 100%);
+  color: white;
+  padding: 10px 0px;
+  width: 200px;
+  border: none;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .delete-post-btn:hover {
-  background: #f65959;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 0 #c44747;
-}
-
-.delete-post-btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #c44747;
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 @keyframes bubbleFloat {
@@ -181,6 +153,11 @@
 .login-btn-small:hover::after {
   left: 100%;
 }
+
+
+
+
+
 
 .delete-post-list {
   display: flex;
