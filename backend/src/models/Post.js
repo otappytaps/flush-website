@@ -13,7 +13,6 @@ import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema(
   {
-    // to be replaced with an author object for accessing username and pfp
     author: {
       type: String,
       required: true,
@@ -46,6 +45,7 @@ const postSchema = new mongoose.Schema(
       },
     ],
     commentCount: { type: Number, default: 0 },
+    isEdited: { type: Boolean, default: false },
   },
   { timestamps: true },
 );

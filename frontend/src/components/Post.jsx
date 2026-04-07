@@ -151,13 +151,7 @@ function Post({ post, refreshPost, user }) {
           <h1 className="post-dot">•</h1>
           <h1 className="post-date">{post.date}</h1>
 
-          {post.updatedAt && post.createdAt && (
-            (() => {
-              const created = new Date(post.createdAt).getTime();
-              const updated = new Date(post.updatedAt).getTime();
-              return Math.abs(updated - created) > 2000;
-            })()
-          ) && (
+          {post.isEdited && (
             <span className="post-edited-tag">(edited)</span>
           )}
         </div>
