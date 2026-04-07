@@ -264,7 +264,12 @@ function PostComment({ post, refreshPost, comment, user }) {
               >
                 🗑️
               </button>
-              <button className="edit-comment-btn">✏️</button>)
+              <button
+                className="edit-comment-btn"
+                onClick={() => setIsEditing(true)}
+              >
+                ✏️
+              </button>
             </>
           ) : null}
         </div>
