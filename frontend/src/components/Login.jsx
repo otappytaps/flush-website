@@ -3,36 +3,47 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import "./Login.css";
+import Error from "./Error";
 
 function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!username || !password) {
+      setErrorMessage("Fields cannot be empty.");
+      setIsErrorDisplayed(true);
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:5001/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("flush_user", JSON.stringify(data.user));
-        setUser(data.user);
-        navigate("/");
-      } else {
-        alert(data.message || "Login failed");
-      }
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/login",
+        { username, password, rememberMe },
+        { withCredentials: true }
+      );
+      const data = response.data;
+      localStorage.setItem("flush_user", JSON.stringify(data.user));
+      setUser(data.user);
+      navigate("/");
     } catch (err) {
-      console.error("Login error:", err);
+      const message = err.response?.data?.message || "Login failed.";
+      setErrorMessage(message);
+      setIsErrorDisplayed(true);
     }
   };
+
+  function closeError() {
+    setIsErrorDisplayed(false);
+  }
 
   return (
     <div className="login-page-container">
@@ -40,7 +51,6 @@ function Login({ setUser }) {
         <div className="login-form-container">
           <form onSubmit={handleLogin}>
             <h2 className="login-title">Welcome Back!</h2>
-
             <div className="login-form-group">
               <label>Username:</label>
               <div className="login-input">
@@ -49,11 +59,14 @@ function Login({ setUser }) {
                   type="text"
                   placeholder="Enter username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  className={isErrorDisplayed ? "input-error" : ""}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                    closeError();
+                  }}
                 />
               </div>
             </div>
-
             <div className="login-form-group">
               <label>Password:</label>
               <div className="login-input">
@@ -62,19 +75,31 @@ function Login({ setUser }) {
                   type="password"
                   placeholder="Enter password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  className={isErrorDisplayed ? "input-error" : ""}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    closeError();
+                  }}
                 />
               </div>
             </div>
-
             <div className="login-remember">
-              <input type="checkbox" id="remember" name="remember" />
+              <input
+                type="checkbox"
+                id="remember"
+                name="remember"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
               <label htmlFor="remember">Remember Me</label>
             </div>
-
+            
+            
             <button type="submit" className="login-btn">
               Login
             </button>
+
+
 
             <div className="login-signup-container">
               <p>
@@ -83,6 +108,7 @@ function Login({ setUser }) {
                   <Link to="/signup"> Sign Up</Link>
                 </span>
               </p>
+              <Error isErrorDisplayed={isErrorDisplayed} error={errorMessage} />
             </div>
           </form>
         </div>
