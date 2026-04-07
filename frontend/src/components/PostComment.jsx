@@ -258,7 +258,7 @@ function PostComment({ post, refreshPost, comment, user }) {
           </button>
           <span className="comment-dislike-count">{comment.dislikes}</span>
 
-          {user || user.username === comment.author ? (
+          {user?.username === comment.author ? (
             <>
               <button
                 className="delete-comment-btn"
