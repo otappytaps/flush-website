@@ -192,7 +192,7 @@ export const updateCommentByPostAndCommentId = async (req, res) => {
       return res.status(404).json({ message: "Comment not found" });
     }
 
-    comment.content = content;
+    comment.text = content;
     comment.isEdited = true;
     await post.save();
 
