@@ -212,6 +212,7 @@ function PostComment({ post, refreshPost, comment, user }) {
               closeError={() => setIsErrorDisplayed(false)}
             />
             <Error
+              className="edit-comment-error"
               isErrorDisplayed={isErrorDisplayed}
               error={errorMessage}
             ></Error>
@@ -257,7 +258,7 @@ function PostComment({ post, refreshPost, comment, user }) {
           </button>
           <span className="comment-dislike-count">{comment.dislikes}</span>
 
-          {user.username == comment.author ? (
+          {user.username || user.username === comment.author ? (
             <>
               <button
                 className="delete-comment-btn"

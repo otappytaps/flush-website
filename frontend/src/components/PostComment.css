@@ -86,6 +86,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 40px;
+  margin-right: 10px;
   background-color: #ff3131;
   cursor: pointer;
   height: 30px;
@@ -114,4 +116,8 @@
 
 .delete-comment-btn:hover {
   background-color: #ff0000;
+}
+
+.edit-comment-error {
+  bottom: 90px;
 }
