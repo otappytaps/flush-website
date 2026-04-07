@@ -98,24 +98,15 @@ function Page({ posts, refreshPosts, user }) {
         <div className="post-cluster">
           {user ? (
             <>
-              <button
-                className="create-post-btn"
-                onClick={() => setIsCreatePopupOpen(true)}
-              >
+              <button className="create-post-btn" onClick={() => setIsCreatePopupOpen(true)}>
                 Create Post
               </button>
 
-              <button
-                className="edit-post-btn"
-                onClick={() => setIsEditPopupOpen(true)}
-              >
+              <button className="edit-post-btn" onClick={() => setIsEditPopupOpen(true)}>
                 Edit Post
               </button>
 
-              <button
-                className="delete-post-btn"
-                onClick={() => setIsDeletePopupOpen(true)}
-              >
+              <button className="delete-post-btn" onClick={() => setIsDeletePopupOpen(true)}>
                 Delete Post
               </button>
             </>
