@@ -99,15 +99,15 @@ function Page({ posts, refreshPosts, user }) {
           {user ? (
             <>
               <button className="create-post-btn" onClick={() => setIsCreatePopupOpen(true)}>
-                <span>➕</span> Create Post
+                Create Post
               </button>
 
               <button className="edit-post-btn" onClick={() => setIsEditPopupOpen(true)}>
-                <span>📝</span> Edit Post
+                Edit Post
               </button>
 
               <button className="delete-post-btn" onClick={() => setIsDeletePopupOpen(true)}>
-                <span>🗑️</span> Delete Post
+                Delete Post
               </button>
             </>
           ) : (

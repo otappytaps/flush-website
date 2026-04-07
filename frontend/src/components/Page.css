@@ -43,7 +43,7 @@
 }
 
 .edit-post-btn {
-  background: linear-gradient(135deg, #ffffff 0%, #f0faff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #dcf3ff 100%);
   color: #38b6ff;
   border: 2px solid #38b6ff;
   padding: 10px 0px;
@@ -60,7 +60,7 @@
 }
 
 .delete-post-btn {
-  background: linear-gradient(135deg, #ff5f6d 0%, #ff3131 100%);
+  background: linear-gradient(135deg, #ff3131 0%, #c40000 100%);
   color: white;
   padding: 10px 0px;
   width: 200px;
