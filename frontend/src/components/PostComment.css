@@ -86,8 +86,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 40px;
-  margin-right: 10px;
   background-color: #ff3131;
   cursor: pointer;
   height: 30px;
@@ -119,5 +117,5 @@
 }
 
 .edit-comment-error {
-  bottom: 90px;
+  bottom: 100px;
 }
