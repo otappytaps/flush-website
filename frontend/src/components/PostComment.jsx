@@ -1,12 +1,14 @@
 import "./PostComment.css";
 import defaultPfp from "../assets/default-pfp.png";
 import { useState } from "react";
+import Popup from "./Popup";
 
 function PostComment({ post, refreshPost, comment, user }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [isLikeBtnHovered, setIsLikeBtnHovered] = useState(false);
   const [isDislikeBtnHovered, setIsDislikeBtnHovered] = useState(false);
+  const [authAlert, setAuthAlert] = useState(null);
 
   const likeBtnStyle = {
     display: "flex",
@@ -55,9 +57,13 @@ function PostComment({ post, refreshPost, comment, user }) {
         },
       );
 
-      if (response.ok) refreshPost();
+      if (response.ok) {
+        refreshPost();
+      } else {
+        setAuthAlert("The pipes are stuck! Server couldn't scrub the comment. 🛠️");
+      }
     } catch (error) {
-      console.error("Failed to update comment.", error);
+      setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
     }
   }
 
@@ -74,15 +80,19 @@ function PostComment({ post, refreshPost, comment, user }) {
         },
       );
 
-      if (response.ok) refreshPost();
+      if (response.ok) {
+        refreshPost();
+      } else {
+        setAuthAlert("The pipes are stuck! Server couldn't scrub the comment. 🛠️");
+      }
     } catch (error) {
-      console.error("Failed to update post.", error);
+      setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
     }
   }
 
   function handleLike() {
     if (!user) {
-      alert("You must be logged in to flush this post! 💩");
+      setAuthAlert("You must be logged in to scrub this post! 🧼");
       return;
     }
     if (isDisliked == false) {
@@ -97,7 +107,7 @@ function PostComment({ post, refreshPost, comment, user }) {
 
   function handleDislike() {
     if (!user) {
-      alert("You must be logged in to flush this post! 💩");
+      setAuthAlert("You must be logged in to flush this post! 💩");
       return;
     }
     if (isLiked == false) {
@@ -111,54 +121,69 @@ function PostComment({ post, refreshPost, comment, user }) {
   }
 
   return (
-    <div className="comment">
-      <div className="comment-author-info">
-        <img
-          className="comment-pfp"
-          src={defaultPfp}
-          alt="profile-picture"
-          onError={(e) => {
-            e.target.src = defaultPfp;
-          }}
-        />
-        <h1 className="comment-username">{comment.author || "Anonymous"}</h1>
-        <h1 className="post-dot">•</h1>
-        <h1 className="post-date">{comment.date}</h1>
-      </div>
+    <>
+      <div className="comment">
+        <div className="comment-author-info">
+          <img
+            className="comment-pfp"
+            src={defaultPfp}
+            alt="profile-picture"
+            onError={(e) => {
+              e.target.src = defaultPfp;
+            }}
+          />
+          <h1 className="comment-username">{comment.author || "Anonymous"}</h1>
+          <h1 className="post-dot">•</h1>
+          <h1 className="post-date">{comment.date}</h1>
+        </div>
 
-      <p>{comment.text}</p>
-      <div className="comment-interactions">
-        <button
-          className="comment-like-btn"
-          onClick={handleLike}
-          style={
-            isLikeBtnHovered
-              ? { ...likeBtnStyle, ...likeBtnStyleHover }
-              : likeBtnStyle
-          }
-          onMouseEnter={() => setIsLikeBtnHovered(true)}
-          onMouseLeave={() => setIsLikeBtnHovered(false)}
-        >
-          <span className="comment-icon">🧼</span>
-        </button>
-        <span className="post-like-count">{comment.likes}</span>
+        <p>{comment.text}</p>
+        <div className="comment-interactions">
+          <button
+            className="comment-like-btn"
+            onClick={handleLike}
+            style={
+              isLikeBtnHovered
+                ? { ...likeBtnStyle, ...likeBtnStyleHover }
+                : likeBtnStyle
+            }
+            onMouseEnter={() => setIsLikeBtnHovered(true)}
+            onMouseLeave={() => setIsLikeBtnHovered(false)}
+          >
+            <span className="comment-icon">🧼</span>
+          </button>
+          <span className="post-like-count">{comment.likes}</span>
 
-        <button
-          className="comment-dislike-btn"
-          onClick={handleDislike}
-          style={
-            isDislikeBtnHovered
-              ? { ...dislikeBtnStyle, ...dislikeBtnStyleHover }
-              : dislikeBtnStyle
-          }
-          onMouseEnter={() => setIsDislikeBtnHovered(true)}
-          onMouseLeave={() => setIsDislikeBtnHovered(false)}
-        >
-          <span className="comment-icon">💩</span>
-        </button>
-        <span className="comment-dislike-count">{comment.dislikes}</span>
+          <button
+            className="comment-dislike-btn"
+            onClick={handleDislike}
+            style={
+              isDislikeBtnHovered
+                ? { ...dislikeBtnStyle, ...dislikeBtnStyleHover }
+                : dislikeBtnStyle
+            }
+            onMouseEnter={() => setIsDislikeBtnHovered(true)}
+            onMouseLeave={() => setIsDislikeBtnHovered(false)}
+          >
+            <span className="comment-icon">💩</span>
+          </button>
+          <span className="comment-dislike-count">{comment.dislikes}</span>
+        </div>
       </div>
-    </div>
+      <Popup open={!!authAlert} onClose={() => setAuthAlert(null)}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
+          justifyContent: "center", height: "100%", gap: "16px", padding: "20px", textAlign: "center" }}>
+          <span style={{ fontSize: "48px" }}>{authAlert?.includes("scrub") ? "🧼" : "💩"}</span>
+          <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>{authAlert}</p>
+          <button onClick={() => setAuthAlert(null)}
+            style={{ padding: "10px 24px", borderRadius: "20px", border: "none",
+              background: "#38b6ff", color: "white", fontWeight: 700, cursor: "pointer" }}>
+            Got it
+          </button>
+        </div>
+      </Popup>
+
+    </>
   );
 }
 

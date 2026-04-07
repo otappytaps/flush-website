@@ -103,6 +103,9 @@ function SignUp() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const strength = getPasswordStrength(formData.password);
 
@@ -148,7 +151,8 @@ function SignUp() {
     e.preventDefault();
 
     if (!agreedToTerms) {
-      alert("You must agree to the Terms & Conditions to sign up.");
+      setErrorMessage("You must agree to the Terms & Conditions to sign up.");
+      setIsErrorDisplayed(true);
       return;
     }
 
@@ -174,13 +178,16 @@ function SignUp() {
       );
       const data = await response.json();
       if (response.ok) {
-        alert("Account created! You can now login.");
+        setShowSuccessPopup(true);
         navigate("/login");
       } else {
-        alert(data.message);
+        setErrorMessage(data.message);
+        setIsErrorDisplayed(true);
       }
     } catch (err) {
       console.error("Sign up failed:", err);
+      setErrorMessage("Server is unreachable. Please try again later."); 
+      setIsErrorDisplayed(true);
     } finally {
       setIsLoading(false);
     }
@@ -383,7 +390,10 @@ function SignUp() {
                     type="checkbox"
                     id="remember"
                     checked={agreedToTerms}
-                    onChange={(e) => setAgreedToTerms(e.target.checked)}
+                    onChange={(e) => {
+                      setAgreedToTerms(e.target.checked);
+                      if (e.target.checked) setIsErrorDisplayed(false);
+                    }}
                   />
                   I agree to the{" "}
                   <span
@@ -394,6 +404,12 @@ function SignUp() {
                   </span>
                 </label>
               </div>
+
+              {isErrorDisplayed && (
+                <p style={{ color: "red", fontSize: "11px", textAlign: "center", marginBottom: "8px" }}>
+                  {errorMessage}
+                </p>
+              )}
 
               <button
                 type="submit"
@@ -485,6 +501,23 @@ function SignUp() {
             By checking "I agree" and signing up, you acknowledge that you have
             read, understood, and agree to these Terms and Conditions.
           </p>
+        </div>
+      </Popup>
+
+      <Popup open={showSuccessPopup} onClose={() => { setShowSuccessPopup(false); navigate("/login"); }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: "16px", textAlign: "center", padding: "20px" }}>
+          <h3 style={{ fontSize: "22px", color: "#333" }}>Account Created! 🎉</h3>
+          <p style={{ color: "#666", fontSize: "14px" }}>You can now log in with your new account.</p>
+          <button
+            onClick={() => { setShowSuccessPopup(false); navigate("/login"); }}
+            style={{
+              background: "linear-gradient(135deg, #38b6ff 0%, #0072ff 50%, #003366 100%)",
+              color: "white", border: "none", borderRadius: "50px",
+              padding: "10px 30px", fontSize: "15px", fontWeight: "700", cursor: "pointer",
+            }}
+          >
+            Go to Login
+          </button>
         </div>
       </Popup>
     </div>

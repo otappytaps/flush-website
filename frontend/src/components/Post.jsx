@@ -15,6 +15,7 @@ function Post({ post, refreshPost, user }) {
   const [isDislikeBtnHovered, setIsDislikeBtnHovered] = useState(false);
 
   const [isCommentPopupOpen, setIsCommentPopupOpen] = useState(false);
+  const [authAlert, setAuthAlert] = useState(null);
 
   const likeBtnStyle = {
     display: "flex",
@@ -63,9 +64,13 @@ function Post({ post, refreshPost, user }) {
         },
       );
 
-      if (response.ok) refreshPost();
+      if (response.ok) {
+        refreshPost();
+      } else {
+        setAuthAlert("The pipes are clogged! Server couldn't process that. 🛠️");
+      }
     } catch (error) {
-      console.error("Failed to update post.", error);
+      setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
     }
   }
 
@@ -84,13 +89,13 @@ function Post({ post, refreshPost, user }) {
 
       if (response.ok) refreshPost();
     } catch (error) {
-      console.error("Failed to update post.", error);
+      setAuthAlert("Internet troubles! Couldn't reach the bathroom. 📶");
     }
   }
 
   function handleLike() {
     if (!user) {
-      alert("You must be logged in to scrub this post! 🧼");
+      setAuthAlert("You must be logged in to scrub this post! 🧼");
       return;
     }
 
@@ -106,7 +111,7 @@ function Post({ post, refreshPost, user }) {
 
   function handleDislike() {
     if (!user) {
-      alert("You must be logged in to flush this post! 💩");
+      setAuthAlert("You must be logged in to flush this post! 💩");
       return;
     }
 
@@ -201,6 +206,18 @@ function Post({ post, refreshPost, user }) {
         onClose={() => setIsCommentPopupOpen(false)}
       >
         <CommentSection post={post} refreshPost={refreshPost} user={user} />
+      </Popup>
+      <Popup open={!!authAlert} onClose={() => setAuthAlert(null)}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
+          justifyContent: "center", height: "100%", gap: "16px", padding: "20px", textAlign: "center" }}>
+          <span style={{ fontSize: "48px" }}>{authAlert?.includes("scrub") ? "🧼" : "💩"}</span>
+          <p style={{ fontSize: "16px", fontWeight: 600, margin: 0 }}>{authAlert}</p>
+          <button onClick={() => setAuthAlert(null)}
+            style={{ padding: "10px 24px", borderRadius: "20px", border: "none",
+              background: "#38b6ff", color: "white", fontWeight: 700, cursor: "pointer" }}>
+            Got it
+          </button>
+        </div>
       </Popup>
     </>
   );
